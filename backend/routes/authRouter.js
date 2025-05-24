@@ -101,7 +101,7 @@ AuthRouter.post("/signup", (req, res, next) => {
  */
 AuthRouter.get("/logout", (req, res, next) => {
 
-  const success = AuthController.invalidateToken(req, res);
+  AuthController.invalidateToken(req, res);
   res.status(200).json({ message: "🔒 Logout effettuato 🔒" });
 });
 
