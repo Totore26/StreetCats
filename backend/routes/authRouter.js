@@ -105,10 +105,27 @@ AuthRouter.get("/logout", (req, res, next) => {
   res.status(200).json({ message: "🔒 Logout effettuato 🔒" });
 });
 
-AuthRouter.get("/reset", (req, res, next) => {
+if (process.env.DEV_MODE === "true") {
+  /**
+   * @swagger
+   * /reset:
+   *   get:
+   *     summary: Reset database and token blacklist (DevMode only)
+   *     description: Resets the application database and invalidates all tokens
+   *     tags: [Authentication]
+   *     produces:
+   *       - application/json
+   *     responses:
+   *       200:
+   *         description: Database and token blacklist reset successfully
+   *       500:
+   *         description: Server error during database reset
+   */
+  AuthRouter.get("/reset", (req, res, next) => {
 
-  AuthController.resetDatabase()
-    .then( () => {res.status(200).json({ message: "Database e blacklist dei token resettati con successo!" });} )
-    .catch( err => {next(err);} );
+    AuthController.resetDatabase()
+      .then( () => {res.status(200).json({ message: "Database e blacklist dei token resettati con successo!" });} )
+      .catch( err => {next(err);} );
 
-});
+  });
+}
