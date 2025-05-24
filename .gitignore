@@ -71,3 +71,6 @@ packages/
 /libpeerconnection.log
 testem.log
 /typings
+
+# other
+test/
