@@ -9,6 +9,7 @@ yarn-error.log*
 package-lock.json
 # SQLite3 database file
 *.sqlite
+backend/database.db
 
 # Angular
 /dist/
