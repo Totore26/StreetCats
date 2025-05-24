@@ -1,4 +1,5 @@
 import { User } from "../models/database.js";
+import { database } from "../models/database.js";
 import Jwt from "jsonwebtoken";
 
 // Blacklist temporanea in memoria per i token invalidati
@@ -53,9 +54,22 @@ export class AuthController {
 
         let newUser = new User({username: user.usr, password: user.pwd});
 
-        return newUser.save();
+        let foundUser = await User.findOne({ 
+            where: { username: newUser.username } 
+        });
+
+        if (foundUser)
+            throw new Error("Username già esistente!");
+        else
+            return newUser.save();
 
     }
 
+    static async resetDatabase() {
+
+        blacklistedTokens.clear();
+        return await database.sync({ force: true });
+    
+    }
 
 }

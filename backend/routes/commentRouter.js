@@ -49,6 +49,6 @@ CommentRouter.use("/comments/:id",requireAuth, (req, res, next) => {
 
     CommentController.create(req)
         .then( result => {res.status(201).json(result);} )
-        .catch( error => {next(error);} );
+        .catch( err => {next(err);} );
 
 });

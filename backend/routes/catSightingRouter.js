@@ -19,11 +19,11 @@ export const CatSightingRouter = express.Router();
  *       500:
  *         description: Server error
  */
-CatSightingRouter.get("/catsightings/map", async (req, res) => {
+CatSightingRouter.get("/catsightings/map", async (req, res, next) => {
 
     CatSightingController.getAllForMap(req, res)
         .then( result => {res.status(200).json(result);} )
-        .catch( error => {next(error);} );
+        .catch( err => {next(err);} );
 
 });
 
@@ -55,7 +55,7 @@ CatSightingRouter.get("/catsightings/:id", async (req, res, next) => {
 
     CatSightingController.getById(req)
         .then( result => {res.status(200).json(result);} )
-        .catch( error => {next(error);} );
+        .catch( err => {next(err);} );
 
 });
 
@@ -112,6 +112,6 @@ CatSightingRouter.post("/catsightings", requireAuth, async (req, res, next) => {
 
     CatSightingController.create(req, res)
         .then( result => {res.status(201).json(result);} )
-        .catch( error => {next(error);} );
+        .catch( err => {next(err);} );
 
 });

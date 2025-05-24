@@ -32,16 +32,14 @@ export const AuthRouter = express.Router();
  *       401:
  *         description: Invalid credentials
  */
-AuthRouter.post("/login", async (req, res) => {
+AuthRouter.post("/login", async (req, res, next) => {
 
   let isAuthenticated = await AuthController.checkCredentials(req, res);
 
-  if (isAuthenticated) {
+  if (isAuthenticated)
     res.json(AuthController.newToken(req.body.usr));
-  } else { 
-    res.status(401);
-    res.json({ error: "🔒 username o password errati, riprova. 🔒" });
-  }
+  else 
+    res.status(401).json( { error: "🔒 username o password errati, riprova. 🔒" } );
 
 });
 
@@ -71,18 +69,16 @@ AuthRouter.post("/login", async (req, res) => {
  *     responses:
  *       201:
  *         description: User registered
+ *       400:
+ *         description: User already exists or invalid data
  *       500:
  *         description: Server error
  */
-AuthRouter.post("/signup", (req, res) => {
+AuthRouter.post("/signup", (req, res, next) => {
 
   AuthController.saveUser(req.body)
-    .then(() => {
-      res.status(201).json({ message: "👤 Utente creato con successo! 👤" });
-    })
-    .catch((err) => {
-      res.status(400).json({ error: "❌ Errore durante la creazione dell'utente ❌" });
-    });
+    .then( () => {res.status(201).json({ message: "👤 Utente creato con successo! 👤" });} )
+    .catch( err => {next(err);} );
     
 });
 
@@ -103,9 +99,16 @@ AuthRouter.post("/signup", (req, res) => {
  *       500:
  *         description: Server error
  */
-AuthRouter.get("/logout" ,(req, res) => {
+AuthRouter.get("/logout", (req, res, next) => {
 
   const success = AuthController.invalidateToken(req, res);
   res.status(200).json({ message: "🔒 Logout effettuato 🔒" });
-  
+});
+
+AuthRouter.get("/reset", (req, res, next) => {
+
+  AuthController.resetDatabase()
+    .then( () => {res.status(200).json({ message: "Database e blacklist dei token resettati con successo!" });} )
+    .catch( err => {next(err);} );
+
 });
