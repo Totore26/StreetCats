@@ -29,7 +29,7 @@ export function createModel(database) {
       type: DataTypes.FLOAT,
       allowNull: false
     },
-    publicationDate: {
+    publicationDate: {  // TODO rimuovi perche non serve, si puo decifrare da createdAt di sequelize
       type: DataTypes.DATEONLY,
       defaultValue: DataTypes.NOW
     }

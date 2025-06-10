@@ -6,20 +6,20 @@ export const CatSightingRouter = express.Router();
 
 /**
  * @swagger
- * /catsightings:
+ * /catsightings/list:
  *   get:
- *     summary: Get all cat sightings
- *     description: Returns a list of cat sightings with full details
+ *     summary: Get all cat sightings for the list
+ *     description: Returns a list of cat sightings with essential information for list display
  *     tags: [Cat Sightings]
  *     produces:
  *       - application/json
  *     responses:
  *       200:
- *         description: List of sightings for map display
+ *         description: List of sightings for list display
  *       500:
  *         description: Server error
  */
-CatSightingRouter.get("catsightings", async (req, res, next) => {
+CatSightingRouter.get("/catsightings/list", async (req, res, next) => {
     
     CatSightingController.getAllForList(req, res)
         .then( result => {res.status(200).json(result);} )

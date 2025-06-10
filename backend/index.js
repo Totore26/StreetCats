@@ -44,7 +44,7 @@ const swaggerSpec = swaggerJSDoc({
       }
     }
   },
-  apis: ['./routes/*Router.js'], // files containing annotations
+  apis: ['./routes/*Router.js','./routers/*/*.js'], // files containing annotations
 });
 app.use('/doc', swaggerUI.serve, swaggerUI.setup(swaggerSpec));
 
