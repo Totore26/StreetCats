@@ -6,6 +6,7 @@ import swaggerUI from "swagger-ui-express"; //middleware for swagger UI
 import swaggerJSDoc from "swagger-jsdoc"; //middleware for swagger JSDoc
 import dotenv from "dotenv"; //middleware for environment variables
 
+//Routes
 import { AuthRouter } from './routes/authRouter.js'; 
 import { CatSightingRouter } from "./routes/catSightingRouter.js";
 import { CommentRouter } from "./routes/commentRouter.js";
