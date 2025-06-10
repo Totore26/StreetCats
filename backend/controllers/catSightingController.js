@@ -2,6 +2,12 @@ import { CatSighting } from "../models/database.js";
 
 export class CatSightingController {
 
+    static async getAllForList(req, res) {
+        
+        return CatSighting.scope('forList').findAll();
+    
+    }
+
     static async getAllForMap(req, res) {
 
         return CatSighting.scope('forMap').findAll();

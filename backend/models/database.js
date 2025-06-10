@@ -54,6 +54,24 @@ CatSighting.addScope('full', {
     }
   ]
 });
+// TODO aggiusta e prova
+// Scope per caricare gli avvistamenti sulla lista (uguale a full ma senza i commenti e con ordine dal piu recente)
+CatSighting.addScope('forList', {  
+  attributes: {
+    include: [
+      [
+        Sequelize.literal(`(
+          SELECT COUNT(*)
+          FROM "Comments" AS "Comment"
+          WHERE "Comment"."CatSightingId" = "CatSighting"."id"
+        )`),
+        'totalComments'
+      ]
+    ]
+  },
+  order: [['publicationDate', 'DESC']], // Ordina dal più recente
+});
+
 
 // synchronize schema (creates missing tables)
 database.sync().then( () => {
