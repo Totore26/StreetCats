@@ -1,8 +1,6 @@
 import { bootstrapApplication } from '@angular/platform-browser';
-import { AppComponent } from './app/app';
+import { App } from './app/app';
 import { appConfig } from './app/app.config';
 
-const bootstrapApp = () => bootstrapApplication(AppComponent, appConfig)
+bootstrapApplication(App, appConfig)
   .catch( err => {console.error('Error during bootstrap:', err);} );
-
-export default bootstrapApp;

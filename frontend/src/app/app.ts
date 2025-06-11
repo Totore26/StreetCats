@@ -9,10 +9,17 @@ import { Footer } from './footer/footer';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Navbar, Footer, MatSliderModule],
+  standalone: true,
+  imports: [
+    CommonModule, 
+    RouterOutlet, 
+    Navbar, 
+    Footer, 
+    MatSliderModule
+  ],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
 export class App {
-  protected title = 'streetCat';
+  title = 'streetCat';
 }

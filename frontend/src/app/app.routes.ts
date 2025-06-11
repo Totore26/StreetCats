@@ -18,7 +18,6 @@ export const routes: Routes = [
     { path: 'catDetails/:id', component: CatDetails, title: 'Cat Details' },
     { path: 'login', component: Login, title: 'Login' },
     { path: 'signup', component: Signup, title: 'Sign Up' },
-    { path: '**', redirectTo: '', pathMatch: 'full' }, // percorso non trovato -> homepage
     { path: 'catDetails/:id/comment',component: Comment, title: 'Comment' },
     { 
         path: 'sightingCreation', 
@@ -31,5 +30,6 @@ export const routes: Routes = [
         component: Profile, 
         title: 'Profile', 
         canActivate: [authGuard] 
-    }
+    },
+    { path: '**', redirectTo: '', pathMatch: 'full' } // percorso non trovato -> homepage
 ];

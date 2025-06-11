@@ -1,4 +1,9 @@
 import {
+  XhrFactory,
+  isPlatformServer,
+  parseCookieValue
+} from "./chunk-PSX7AJZG.js";
+import {
   APP_BOOTSTRAP_LISTENER,
   ApplicationRef,
   Console,
@@ -42,32 +47,12 @@ import {
   ɵɵdefineInjector,
   ɵɵdefineNgModule,
   ɵɵinject
-} from "./chunk-IRJLZN3A.js";
+} from "./chunk-HNZH3MNP.js";
 import {
   __async,
   __objRest,
   __spreadValues
 } from "./chunk-WDMUDEB6.js";
-
-// node_modules/@angular/common/fesm2022/xhr-BfNfxNDv.mjs
-function parseCookieValue(cookieStr, name) {
-  name = encodeURIComponent(name);
-  for (const cookie of cookieStr.split(";")) {
-    const eqIndex = cookie.indexOf("=");
-    const [cookieName, cookieValue] = eqIndex == -1 ? [cookie, ""] : [cookie.slice(0, eqIndex), cookie.slice(eqIndex + 1)];
-    if (cookieName.trim() === name) {
-      return decodeURIComponent(cookieValue);
-    }
-  }
-  return null;
-}
-var PLATFORM_BROWSER_ID = "browser";
-var PLATFORM_SERVER_ID = "server";
-function isPlatformServer(platformId) {
-  return platformId === PLATFORM_SERVER_ID;
-}
-var XhrFactory = class {
-};
 
 // node_modules/@angular/common/fesm2022/module-Bc_q5C8l.mjs
 var HttpHandler = class {
@@ -2515,10 +2500,6 @@ function appendMissingHeadersDetection(url, headers, headersToInclude) {
 }
 
 export {
-  parseCookieValue,
-  PLATFORM_BROWSER_ID,
-  isPlatformServer,
-  XhrFactory,
   HttpHandler,
   HttpBackend,
   HttpHeaders,
@@ -2561,7 +2542,6 @@ export {
 };
 /*! Bundled license information:
 
-@angular/common/fesm2022/xhr-BfNfxNDv.mjs:
 @angular/common/fesm2022/module-Bc_q5C8l.mjs:
 @angular/common/fesm2022/http.mjs:
   (**
@@ -2570,4 +2550,4 @@ export {
    * License: MIT
    *)
 */
-//# sourceMappingURL=chunk-FAH4AIUW.js.map
+//# sourceMappingURL=chunk-KC635CMN.js.map
