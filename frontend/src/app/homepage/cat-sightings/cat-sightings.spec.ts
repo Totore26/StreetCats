@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CatList } from './cat-list';
+import { CatSightings } from './cat-sightings';
 
-describe('CatList', () => {
-  let component: CatList;
-  let fixture: ComponentFixture<CatList>;
+describe('CatSightings', () => {
+  let component: CatSightings;
+  let fixture: ComponentFixture<CatSightings>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CatList]
+      imports: [CatSightings]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(CatList);
+    fixture = TestBed.createComponent(CatSightings);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

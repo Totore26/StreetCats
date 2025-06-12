@@ -11,7 +11,10 @@ import {
   _animationsDisabled,
   _isTestEnvironment,
   coerceCssPixelValue
-} from "./chunk-D36CAFKE.js";
+} from "./chunk-3EFUMZVF.js";
+import {
+  supportsScrollBehavior
+} from "./chunk-EOFW2REK.js";
 import {
   DOWN_ARROW,
   ENTER,
@@ -31,9 +34,6 @@ import {
   isFakeMousedownFromScreenReader,
   isFakeTouchstartFromScreenReader
 } from "./chunk-KAUT6BV7.js";
-import {
-  supportsScrollBehavior
-} from "./chunk-EOFW2REK.js";
 import {
   Platform
 } from "./chunk-IPZWUJ7P.js";

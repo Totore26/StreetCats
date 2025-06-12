@@ -1,1 +1,45 @@
-<p>navbar works!</p>
+<nav class="flex justify-between items-center px-6 py-3 bg-white shadow h-16">
+  <div class="flex items-center gap-6">
+    <a routerLink="/" class="no-underline text-current">
+      <span class="text-2xl font-bold" style="font-family: 'Comic Sans MS', sans-serif;">
+        Street<span class="text-orange-500">Cats</span> 🐾
+      </span>
+    </a>
+    <div class="flex gap-5">
+      <a routerLink="/home" routerLinkActive="active text-orange-500 border-b-2 border-orange-500" 
+         class="no-underline text-gray-700 font-medium py-2 px-0.5 relative transition duration-200 hover:text-orange-500">
+        Home
+      </a>
+      <a routerLink="/catSightings" routerLinkActive="active text-orange-500 border-b-2 border-orange-500" 
+         class="no-underline text-gray-700 font-medium py-2 px-0.5 relative transition duration-200 hover:text-orange-500">
+        Avvistamenti
+      </a>
+    </div>
+  </div>
+  
+  <div class="flex items-center gap-6">
+    <!-- Utente non autenticato -->
+
+    @if (authService.isUserAuthenticated()) {
+
+      <a routerLink="/profile" class="no-underline font-medium py-2 px-4 rounded transition duration-200 bg-orange-500 text-white cursor-pointer hover:bg-orange-600">
+        Profilo
+      </a>
+      <button (click)="authService.logout()" class="no-underline font-medium py-2 px-4 rounded transition duration-200 bg-red-500 text-white cursor-pointer hover:bg-red-600">
+        Logout
+      </button>
+
+    } @else { <!-- Utente autenticato -->
+
+      <a routerLink="/login" class="no-underline font-medium py-2 px-4 rounded transition duration-200 text-gray-700 cursor-pointer hover:bg-orange-100">
+        Login
+      </a>
+      <a routerLink="/signup" class="no-underline font-medium py-2 px-4 rounded transition duration-200 bg-orange-500 text-white cursor-pointer hover:bg-orange-600">
+        Signup
+      </a>
+
+    }
+
+  </div>
+    
+</nav>

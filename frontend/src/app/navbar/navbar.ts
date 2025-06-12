@@ -4,16 +4,18 @@ import { RouterLink, RouterLinkActive, Router } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
+import { AuthService } from '../_services/auth/auth-service';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [CommonModule, RouterLink, RouterLinkActive, MatIconModule, MatButtonModule, MatMenuModule],
+  imports: [ CommonModule, RouterLink, MatIconModule, MatButtonModule, MatMenuModule],
   templateUrl: './navbar.html',
   styleUrl: './navbar.scss'
 })
 export class Navbar {
   router = inject(Router);
+  authService = inject(AuthService);
   appTitle = 'StreetCats';
   
   navLinks = [
@@ -26,4 +28,9 @@ export class Navbar {
   isActive(route: string): boolean {
     return this.router.url === route;
   }
+
+  logout() {
+    this.authService.logout();
+  }
+
 }

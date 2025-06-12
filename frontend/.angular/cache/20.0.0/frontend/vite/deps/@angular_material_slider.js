@@ -5,12 +5,12 @@ import {
   RippleState,
   _StructuralStylesLoader,
   _animationsDisabled
-} from "./chunk-D36CAFKE.js";
+} from "./chunk-3EFUMZVF.js";
+import "./chunk-EOFW2REK.js";
 import {
   MatCommonModule,
   _CdkPrivateStyleLoader
 } from "./chunk-KAUT6BV7.js";
-import "./chunk-EOFW2REK.js";
 import {
   Platform
 } from "./chunk-IPZWUJ7P.js";
