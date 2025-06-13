@@ -1,9 +1,9 @@
+@use "tailwindcss";
 
 // Custom Theming for Angular Material
 // For more information: https://material.angular.dev/guide/theming
 @use '@angular/material' as mat;
 @include mat.core();
-@import "tailwindcss";
 
 // palette arancione personalizzata
 $orange-primary: (

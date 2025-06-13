@@ -57,7 +57,7 @@ CatSighting.addScope('full', {
 
 // Scope per caricare gli avvistamenti sulla lista (uguale a full ma senza i commenti e con ordine dal piu recente)
 CatSighting.addScope('forList', {  
-  order: [['updatedAt', 'ASC' ]], // Ordina in modo da mostrare i nuovi avvistamenti per primi
+  order: [['updatedAt', 'ASC' ]], // Ordina in modo da mostrare i nuovi avvistamenti per primi TODO verifica funzionamento
 });
 
 
