@@ -1,35 +1,43 @@
 <mat-tab-group dynamicHeight>
 
   <mat-tab label="Mappa interattiva">
-    <div class="map-container w-full flex justify-center items-center p-4">
-      <div class="map-wrapper relative w-[75vw] h-[75vh] border border-gray-300 rounded-md shadow-md overflow-hidden">
+    <div class="map-container w-full flex justify-center items-center p-2 sm:p-4">
+      <div class="map-wrapper relative w-full sm:w-[85vw] md:w-[80vw] lg:w-[75vw] h-[50vh] sm:h-[60vh] md:h-[70vh] lg:h-[75vh] border border-gray-300 rounded-md shadow-md overflow-hidden">
         <div id="map" class="absolute inset-0 w-full h-full"></div>
       </div>
     </div>
   </mat-tab>
 
   <mat-tab label="Lista degli avvistamenti">
-    <div class="p-4 flex flex-col items-center">
-      <h2 class="text-xl font-bold mb-4 text-center">Avvistamenti recenti</h2>
+    <div class="p-2 sm:p-4 flex flex-col items-center">
+      <h2 class="text-lg sm:text-xl font-bold mb-2 sm:mb-4 text-center">Avvistamenti recenti</h2>
       
       @if (catSightings.length > 0) {
-        <div class="flex flex-col items-center w-full max-w-3xl gap-4">
-          @for (sighting of catSightings; track sighting.id) {
-            <div class="border rounded-lg shadow-md p-4 hover:shadow-lg transition-shadow w-full">
-              <h3 class="font-semibold text-lg mb-2 text-center">{{sighting.title || 'N/A'}}</h3>
-              <div class="mb-1 text-center"><strong>Pubblicato:</strong> {{sighting.updatedAt || 'Non specificato'}}</div>
-              <div class="mt-3 flex flex-col items-center">
-                <button class="bg-gray-300 hover:bg-gray-400 text-white px-3 py-1 rounded-md text-sm mb-2 w-full max-w-[200px]"
-                        (click)="viewDetails(sighting)">
+        <div class="flex flex-col items-center w-full max-w-full sm:max-w-3xl gap-2 sm:gap-4">
+          @for (sighting of displayedSightings; track sighting.id) {
+            <div class="border rounded-lg shadow-md p-2 sm:p-4 hover:shadow-lg transition-shadow w-full">
+              <h3 class="font-semibold text-xs sm:text-sm mb-1 sm:mb-2 text-center">{{sighting.title || 'N/A'}}</h3>
+              <div class="mb-1 text-xs text-center"><strong>Pubblicato:</strong> {{sighting.updatedAt || 'Non specificato'}}</div>
+              <div class="mt-2 sm:mt-3 flex flex-col items-center">
+                <a [routerLink]="['/catDetails', sighting.id]" class="bg-gray-300 hover:bg-gray-400 text-white px-2 sm:px-3 py-1 rounded-md text-xs sm:text-sm mb-1 sm:mb-2 w-full max-w-[150px] sm:max-w-[200px]">
                   Dettagli
-                </button>
-                <button class="bg-orange-400 hover:bg-orange-500 text-white px-3 py-1 rounded-md text-sm w-full max-w-[200px]"
+                </a>
+                <button class="bg-orange-400 hover:bg-orange-500 text-white px-2 sm:px-3 py-1 rounded-md text-xs sm:text-sm w-full max-w-[150px] sm:max-w-[200px]"
                         (click)="map.setView([sighting.latitude, sighting.longitude], 17)">
                   Visualizza sulla mappa
                 </button>
               </div>
             </div>
           }
+          
+          <mat-paginator
+            class="w-full max-w-full sm:max-w-3xl"
+            [length]="catSightings.length"
+            [pageSize]="pageSize"
+            [pageSizeOptions]="pageSizeOptions"
+            (page)="handlePageEvent($event)"
+            aria-label="Seleziona pagina">
+          </mat-paginator>
         </div>
       }
     </div>

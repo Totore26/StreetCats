@@ -20,7 +20,7 @@ import {
   ɵɵdefineInjector,
   ɵɵdefineNgModule,
   ɵɵgetInheritedFactory
-} from "./chunk-L3V22Y3Q.js";
+} from "./chunk-UITIGP3A.js";
 
 // node_modules/@angular/cdk/fesm2022/portal.mjs
 function throwNullPortalError() {
@@ -575,10 +575,11 @@ var PortalModule = class _PortalModule {
 })();
 
 export {
+  ComponentPortal,
   TemplatePortal,
   DomPortalOutlet,
   CdkPortal,
   CdkPortalOutlet,
   PortalModule
 };
-//# sourceMappingURL=chunk-KLLCH7UI.js.map
+//# sourceMappingURL=chunk-L2V4DHJI.js.map

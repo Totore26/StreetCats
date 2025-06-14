@@ -2,10 +2,10 @@ import {
   Platform,
   coerceElement,
   coerceNumberProperty
-} from "./chunk-AICPP563.js";
+} from "./chunk-PVUDT5IK.js";
 import {
   BidiModule
-} from "./chunk-LLCBYGFY.js";
+} from "./chunk-ZXDURZYA.js";
 import {
   APP_ID,
   ApplicationRef,
@@ -58,7 +58,7 @@ import {
   ɵɵdefineInjectable,
   ɵɵdefineInjector,
   ɵɵdefineNgModule
-} from "./chunk-L3V22Y3Q.js";
+} from "./chunk-UITIGP3A.js";
 import {
   __spreadValues
 } from "./chunk-3OV72XIM.js";
@@ -2436,6 +2436,19 @@ var A11yModule = class _A11yModule {
   }], () => [], null);
 })();
 
+// node_modules/@angular/cdk/fesm2022/activedescendant-key-manager-CZAE5aFC.mjs
+var ActiveDescendantKeyManager = class extends ListKeyManager {
+  setActiveItem(index) {
+    if (this.activeItem) {
+      this.activeItem.setInactiveStyles();
+    }
+    super.setActiveItem(index);
+    if (this.activeItem) {
+      this.activeItem.setActiveStyles();
+    }
+  }
+};
+
 // node_modules/@angular/cdk/fesm2022/coercion/private.mjs
 function coerceObservable(data) {
   if (!isObservable(data)) {
@@ -3165,17 +3178,26 @@ export {
   UP_ARROW,
   RIGHT_ARROW,
   DOWN_ARROW,
+  A,
   _getEventTarget,
   normalizePassiveListenerOptions,
   FocusMonitor,
   CdkMonitorFocus,
   _CdkPrivateStyleLoader,
+  _VisuallyHiddenLoader,
   coerceArray,
   MediaMatcher,
   CdkObserveContent,
+  ObserversModule,
+  LiveAnnouncer,
+  A11yModule,
   _IdGenerator,
   hasModifierKey,
+  ActiveDescendantKeyManager,
   FocusKeyManager,
+  addAriaReferencedId,
+  removeAriaReferencedId,
+  AriaDescriber,
   MatCommonModule
 };
-//# sourceMappingURL=chunk-3RQMMWB7.js.map
+//# sourceMappingURL=chunk-JALW5LKY.js.map
