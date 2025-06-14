@@ -8,7 +8,7 @@ export class MarkdownService {
 
   constructor() { }
 
-    async convertToHtml(markdown: string): Promise<string> {
+  async convertToHtml(markdown: string): Promise<string> {
     return marked(markdown); // retunrn Promise<string>
   }
 

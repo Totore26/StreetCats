@@ -5,6 +5,8 @@
 @use '@angular/material' as mat;
 @include mat.core();
 @import 'ngx-toastr/toastr';
+@import "leaflet/dist/leaflet.css";
+
 
 // palette arancione personalizzata
 $orange-primary: (

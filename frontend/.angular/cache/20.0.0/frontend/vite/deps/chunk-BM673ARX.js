@@ -3,7 +3,7 @@ import {
   DomAdapter,
   getDOM,
   setRootDomAdapter
-} from "./chunk-AVYC74TB.js";
+} from "./chunk-E5CSQSUJ.js";
 import {
   PLATFORM_BROWSER_ID,
   XhrFactory,
@@ -45,10 +45,10 @@ import {
   ɵɵdefineInjector,
   ɵɵdefineNgModule,
   ɵɵinject
-} from "./chunk-HNZH3MNP.js";
+} from "./chunk-L3V22Y3Q.js";
 import {
   __spreadValues
-} from "./chunk-WDMUDEB6.js";
+} from "./chunk-3OV72XIM.js";
 
 // node_modules/@angular/platform-browser/fesm2022/dom_renderer-BMDc99h8.mjs
 var EVENT_MANAGER_PLUGINS = new InjectionToken(ngDevMode ? "EventManagerPlugins" : "");
@@ -1229,4 +1229,4 @@ export {
    * License: MIT
    *)
 */
-//# sourceMappingURL=chunk-7P365LXS.js.map
+//# sourceMappingURL=chunk-BM673ARX.js.map

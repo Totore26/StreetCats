@@ -24,13 +24,13 @@ export class Navbar {
     { path: '/about', label: 'Chi siamo', icon: 'info' },
     { path: '/contact', label: 'Contatti', icon: 'mail' }
   ];
-  
-  isActive(route: string): boolean {
-    return this.router.url === route;
-  }
 
   logout() {
     this.authService.logout();
+  }
+
+  isUserAuthenticated(): boolean {
+    return this.authService.isAuthenticated();
   }
 
 }
