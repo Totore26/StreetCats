@@ -153,8 +153,7 @@ export class CatSightings {
       // popup informativo con bottone
       const popupContent = `
         <div style="text-align: center; margin: 5px;">
-          <b>Nuovo avvistamento</b><br>
-          <button class="add-sighting-btn" style="background-color: #f97316; color: white; padding: 4px 8px; border: none; border-radius: 4px; cursor: pointer; margin-top: 8px;">Aggiungi avvistamento</button>
+          <button class="add-sighting-btn" style="background-color: #f97316; color: white; padding: 4px 8px; border: none; border-radius: 4px; cursor: pointer; margin-top: 8px;">aggiungi un nuovo<br>avvistamento qui</button>
         </div>`;
         
       this.tempMarker.bindPopup(popupContent)
