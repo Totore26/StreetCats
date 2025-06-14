@@ -15,6 +15,9 @@ import * as L from 'leaflet';
   styleUrl: './cat-sightings.scss'
 })
 export class CatSightings {
+viewDetails(sightings: CatSightingItem) {
+throw new Error('Method not implemented.');
+}
   
   router = inject(Router);
   geoLoc = inject(Geolocalization)
