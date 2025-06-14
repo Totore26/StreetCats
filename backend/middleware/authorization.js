@@ -11,7 +11,7 @@ export function requireAuth(req, res, next){
         if(err){
             next({status: 401, message: "Unauthorized"}); // send 401 to middleware error handler
         } else {
-            req.username = decodedToken.username;
+            req.username = decodedToken.user;
             next();
         }
     });

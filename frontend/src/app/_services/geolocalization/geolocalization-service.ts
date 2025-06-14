@@ -15,12 +15,8 @@ export class Geolocalization {
         reject(new Error('Geolocalizzazione non supportata dal browser'));
 
       navigator.geolocation.getCurrentPosition(
-        position => {
-          resolve(position);
-        },
-        error => {
-          reject(error);
-        },
+        position => { resolve(position); },
+        error => { reject(error); },
         {
           enableHighAccuracy: true, // Per una maggiore precisione
           timeout: 5000,            // Timeout dopo 5 secondi

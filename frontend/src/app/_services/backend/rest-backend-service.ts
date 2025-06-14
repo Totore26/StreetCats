@@ -1,20 +1,13 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { EventEmitter, Injectable } from '@angular/core';
-import { CatSightingItem } from './rest-backend-utils';
-import { AuthRequest } from './rest-backend-utils';
-
-export type SortingCriteria = "date" | "controversial" | "newest" | "unpopular";
+import { CatSightingItem } from './rest-backend-models';
+import { AuthRequest } from './rest-backend-models';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class RestBackendService {
-
-    
-  orderChanged: EventEmitter<SortingCriteria> = new EventEmitter<SortingCriteria>();
-  order: SortingCriteria = "date";
-
 
   url = "http://localhost:3000";
 
@@ -38,13 +31,9 @@ export class RestBackendService {
   }
 
   // Avvistamenti gatti
-  getCatSightingsForMap() {
-    const url = `${this.url}/catsightings/map`;
-    return this.http.get<CatSightingItem[]>(url, this.httpOptions);
-  }
 
-  getCatSightingsForList() {
-    const url = `${this.url}/catsightings/list`;
+  getCatSightings() {
+    const url = `${this.url}/catsightings`;
     return this.http.get<CatSightingItem[]>(url, this.httpOptions);
   }
 

@@ -2,22 +2,22 @@ export interface CatSightingItem {
   id?: number; 
   title: string;
   description: string;
+  image?: string;
+  latitude: number;
+  longitude: number;
   createdAt?: Date; 
   updatedAt?: Date;
-  UserUserName?: string; 
-  TotalVotes?: number;
-  PositiveVotes?: number;
-  NegativeVotes?: number;
+  UserUsername?: string;
   Comments?: CommentItem[];
 }
 
 export interface CommentItem {
   id?: number;
-  text: string;
+  content: string;
   createdAt?: Date;
   updatedAt?: Date;
-  IdeaId?: number;
-  UserUserName?: string;
+  CatSightingId?: number;
+  UserUsername?: string; 
 }
 
 export interface AuthRequest { usr: string, pwd: string }

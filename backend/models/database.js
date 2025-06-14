@@ -29,11 +29,6 @@ User.hasMany(CatSighting); // Un utente può avere più gatti (avvistamenti)
 
 // Scope:
 
-// Scope per visualizzare gli avvistamenti sulla mappa
-CatSighting.addScope('forMap', {
-  attributes: ['id', 'title', 'publicationDate' ,'latitude', 'longitude'],
-});
-
 // Scope per caricare gli avvistamenti completi di autore e numero totale di commenti per avvistamento
 CatSighting.addScope('full', {  
   attributes: {
@@ -55,8 +50,8 @@ CatSighting.addScope('full', {
   ]
 });
 
-// Scope per caricare gli avvistamenti sulla lista (uguale a full ma senza i commenti e con ordine dal piu recente)
-CatSighting.addScope('forList', {  
+// Scope per caricare gli avvistamenti sulla mappa e sulla lista
+CatSighting.addScope('all', {  
   order: [['updatedAt', 'ASC' ]], // Ordina in modo da mostrare i nuovi avvistamenti per primi TODO verifica funzionamento
 });
 

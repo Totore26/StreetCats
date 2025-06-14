@@ -1,27 +1,47 @@
 import { Component, inject } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
+import { CommonModule } from '@angular/common';
 import {MatTabsModule} from '@angular/material/tabs';
 import { Geolocalization } from '../../_services/geolocalization/geolocalization-service';
+import { CatSightingItem } from '../../_services/backend/rest-backend-models';
+import { RestBackendService } from '../../_services/backend/rest-backend-service';
+import { ToastrService } from 'ngx-toastr';
 import * as L from 'leaflet';
-
 
 @Component({
   selector: 'app-cat-sightings',
-  imports: [MatTabsModule],
+  imports: [MatTabsModule, CommonModule],
   templateUrl: './cat-sightings.html',
   styleUrl: './cat-sightings.scss'
 })
 export class CatSightings {
   
-  GeoLoc = inject(Geolocalization)
-  
-  // Variabili per la mappa e i marker
+  router = inject(Router);
+  geoLoc = inject(Geolocalization)
+  restBackendService = inject(RestBackendService);
+  toastr = inject(ToastrService);
+
+  catSightings: CatSightingItem[] = []; // Array per memorizzare gli avvistamenti dei gatti
   lat: number = 45.4642; // Milano latitudine
   lon: number = 9.1900; // Milano longitudine
   map: any;
 
   ngAfterViewInit() {
+    this.fetchData();
     this.initMap();
     this.setUserPosition();
+  }
+
+  fetchData() {
+    this.restBackendService.getCatSightings().subscribe({
+      next: (data) => { 
+        this.catSightings = data; 
+        if (data.length === 0)
+          this.toastr.info("Nessun avvistamento trovato", "Info:", { progressBar: true });
+      },
+      error: (err) => { console.error('Errore nel recupero degli avvistamenti dei gatti:', err); }, 
+      complete: () => { console.log('Recupero avvistamenti gatti completato'); }
+    });
   }
 
   // Inizializza la mappa con Leaflet
@@ -38,7 +58,7 @@ export class CatSightings {
 
   // per richiedere e applicare la geolocalizzazione
   setUserPosition() {
-    let position = this.GeoLoc.getUserPosition()
+    let position = this.geoLoc.getUserPosition()
       .then(pos => {
         this.lat = pos.coords.latitude;
         this.lon = pos.coords.longitude;
