@@ -40,7 +40,7 @@ export class Login {
 
     // Se il form non è valido, mostra un errore
     if (this.loginForm.invalid) {
-      this.toastr.error("I dati forniti non sono validi!", "Oops! Dati non validi!");
+      this.toastr.error("completa i campi obbligatori e verifica che siano validi", "Attenzione", { progressBar: true });
       return;
     }
 
@@ -56,7 +56,7 @@ export class Login {
         this.toastr.error("Per favore, inserisci un nome utente e una password validi", "Oops! Credenziali non valide");
       },
       complete: () => {
-        this.toastr.success(`Ora puoi segnalare nuovi avvistamenti e commentare!`, `Benvenuto ${this.loginForm.value.user}!`);
+        this.toastr.success(`Ora puoi segnalare nuovi avvistamenti e commentare!`, `Benvenuto ${this.loginForm.value.user}!`, { progressBar: true });
         this.router.navigateByUrl("/"); 
       }
     });

@@ -21,12 +21,11 @@ export class AuthController {
         return foundUser !== null;
     }
 
-    static newToken(username) {
+  static newToken(username){
 
-        const token = Jwt.sign({ username }, process.env.JWT_SECRET, { expiresIn: '1y' });
-        return { token };
-
-    }
+    return Jwt.sign({user:username}, process.env.JWT_SECRET, {expiresIn: `1y`});
+    
+  }
 
     static isTokenValid(token, callback) {
 

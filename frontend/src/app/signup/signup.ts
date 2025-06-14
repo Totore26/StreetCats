@@ -35,7 +35,7 @@ export class Signup {
 
     // Se il form non è valido, mostra un errore
     if (this.signupForm.invalid) {
-      this.toastr.error("I dati forniti non sono validi!", "Errore nei dati!");
+      this.toastr.error("completa i campi obbligatori e verifica che siano validi", "Attenzione", { progressBar: true });
       return;
     }
 
@@ -49,8 +49,8 @@ export class Signup {
         this.toastr.error("Il nome utente scelto è già stato utilizzato", "Errore nella creazione dell'account");
       },
       complete: () => {
-        this.toastr.success(`Registrazione completata!`, `Complimenti ${this.signupForm.value.user}!`);
         this.router.navigateByUrl("/login");  // Reindirizza alla pagina di login
+        this.toastr.success(`Registrazione completata. Sei stato reindirizzato alla pagina di login`, `Complimenti ${this.signupForm.value.user}!`, { progressBar: true });
       }
     });
   }

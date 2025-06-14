@@ -1,5 +1,6 @@
 import { Injectable, WritableSignal, computed, effect, signal } from '@angular/core';
 import { jwtDecode } from "jwt-decode";
+import { ToastrService } from 'ngx-toastr';
 
 interface AuthState {
   user: string | null,
@@ -25,7 +26,7 @@ export class AuthService {
   token = computed(() => this.authState().token);
   isAuthenticated = computed(() => this.authState().isAuthenticated);
 
-  constructor() {
+  constructor(private toastr: ToastrService) {
     effect(() => {
       const token = this.authState().token;
       const user = this.authState().user;
@@ -91,5 +92,6 @@ export class AuthService {
       localStorage.removeItem("user");
       localStorage.removeItem("token");
     }
+    this.toastr.success("Sei stato disconnesso con successo", "Logout effettuato",{ progressBar: true });
   }
 }

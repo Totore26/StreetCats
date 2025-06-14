@@ -13,9 +13,9 @@
                         placeholder="Scegli un username" required>
                     
                     @if (submittedFlag && signupForm.controls['user'].errors?.['required']) {
-                    <div class="mt-2 text-sm text-red-600">
-                        L'username è obbligatorio
-                    </div>
+                        <div class="mt-2 text-sm text-red-600">
+                            L'username è obbligatorio
+                        </div>
                     }
                 </div>
                 <div>
@@ -25,25 +25,32 @@
                         placeholder="Crea una password" required>
                     
                     @if (submittedFlag && signupForm.controls['password'].errors?.['required']) {
-                    <div class="mt-2 text-sm text-red-600">
-                        La password è obbligatoria
-                    </div>
+                        <div class="mt-2 text-sm text-red-600">
+                            La password è obbligatoria
+                        </div>
                     }
                     
                     @if (submittedFlag && signupForm.controls['password'].errors?.['minlength']) {
-                    <div class="mt-2 text-sm text-red-600">
-                        La password deve essere di almeno 6 caratteri
-                    </div>
+                        <div class="mt-2 text-sm text-red-600">
+                            La password deve essere di almeno 4 caratteri
+                        </div>
                     }
                 </div>
-                <div class="flex items-start">
-                    <div class="flex items-center h-5">
-                        <input id="terms" aria-describedby="terms" type="checkbox" formControlName="terms"
-                            class="w-5 h-5 rounded bg-gray-50 focus:ring-3 focus:ring-orange-300">
+                <div>
+                    <div class="flex items-start">
+                        <div class="flex items-center h-5">
+                            <input id="terms" aria-describedby="terms" type="checkbox" formControlName="terms"
+                                class="w-5 h-5 rounded bg-gray-50 focus:ring-3 focus:ring-orange-300">
+                        </div>
+                        <div class="ml-3 text-sm">
+                            <label for="terms" class="text-gray-500">Accetto i <a href="https://www.google.com/search?q=termini+e+condizioni" target="_blank" class="text-orange-500 hover:underline">Termini e Condizioni</a></label>
+                        </div>
                     </div>
-                    <div class="ml-3 text-sm">
-                        <label for="terms" class="text-gray-500">Accetto i <a href="https://www.google.com/search?q=termini+e+condizioni" target="_blank" class="text-orange-500 hover:underline">Termini e Condizioni</a></label>
-                    </div>
+                    @if (submittedFlag && signupForm.controls['terms'].errors?.['required']) {
+                        <div class="mt-2 text-sm text-red-600">
+                            Devi accettare i termini e le condizioni 
+                        </div>
+                    }
                 </div>
                 <button type="submit" (click)="doSignUp()"
                     class="w-full text-white bg-orange-500 hover:bg-orange-600 focus:ring-4 focus:outline-none focus:ring-orange-300 font-medium rounded-lg text-lg px-8 py-4 text-center transition duration-200">
