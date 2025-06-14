@@ -27,7 +27,7 @@ export class RestBackendService {
   };
 
   login(loginRequest: AuthRequest){
-    const url = `${this.url}/auth`; 
+    const url = `${this.url}/login`; 
     return this.http.post<string>(url, loginRequest, this.httpOptions);
   }
 

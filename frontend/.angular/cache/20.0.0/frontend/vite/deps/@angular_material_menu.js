@@ -1,10 +1,4 @@
 import {
-  CdkScrollableModule,
-  ScrollDispatcher,
-  ScrollingModule,
-  ViewportRuler
-} from "./chunk-OXUWV35B.js";
-import {
   MatRipple,
   MatRippleModule,
   _StructuralStylesLoader,
@@ -12,6 +6,12 @@ import {
   _isTestEnvironment,
   coerceCssPixelValue
 } from "./chunk-3EFUMZVF.js";
+import {
+  CdkScrollableModule,
+  ScrollDispatcher,
+  ScrollingModule,
+  ViewportRuler
+} from "./chunk-OXUWV35B.js";
 import {
   supportsScrollBehavior
 } from "./chunk-EOFW2REK.js";
@@ -38,13 +38,13 @@ import {
   Platform
 } from "./chunk-IPZWUJ7P.js";
 import {
-  BidiModule,
-  Directionality
-} from "./chunk-TD3YG4UO.js";
-import {
   Location
 } from "./chunk-AVYC74TB.js";
 import "./chunk-PSX7AJZG.js";
+import {
+  BidiModule,
+  Directionality
+} from "./chunk-TD3YG4UO.js";
 import {
   ANIMATION_MODULE_TYPE,
   ApplicationRef,
