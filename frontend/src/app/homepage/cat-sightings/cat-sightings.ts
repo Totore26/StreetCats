@@ -8,7 +8,7 @@ import { CatSightingItem } from '../../_services/backend/rest-backend-models';
 import { RestBackendService } from '../../_services/backend/rest-backend-service';
 import { ToastrService } from 'ngx-toastr';
 import * as L from 'leaflet';
-import { catIcon, UserIcon } from './markerIcon';
+import { catIcon, userIcon, addIcon } from './markerIcon';
 
 @Component({
   selector: 'app-cat-sightings',
@@ -28,6 +28,7 @@ export class CatSightings {
   lat: number = 45.4642; // Milano latitudine
   lon: number = 9.1900; // Milano longitudine
   map: any;
+  tempMarker: L.Marker | null = null;
 
   // Proprietà per la paginazione
   pageSize = 5;
@@ -89,6 +90,8 @@ export class CatSightings {
         minZoom: 3,
     }).addTo(this.map);
 
+    this.map.on('click', (e: L.LeafletMouseEvent) => { this.handleMapClick(e);}); //listener per il click sulla mappa
+
   } 
 
   // per richiedere e applicare la geolocalizzazione
@@ -100,37 +103,79 @@ export class CatSightings {
         
         this.map.setView([this.lat, this.lon], 15); // imposto le coordinate
         this.map.invalidateSize(); // aggiorna la posizione della mappa
-        L.marker([this.lat, this.lon], { icon: UserIcon } ).addTo(this.map).bindPopup('La tua posizione!') // aggiungo il marker
+        L.marker([this.lat, this.lon], { icon: userIcon } ).addTo(this.map).bindPopup('La tua posizione!') // aggiungo il marker
       })
       .catch(error => { console.error('Errore nella geolocalizzazione:', error); });
   }
 
-  // aggiungo i marker per ogni avvistamento
+  // marker per ogni avvistamento scaricato
   setMarkersOnMap() {
     
     this.catSightings.forEach(sighting => {
         const popupContent = `
           <b>${sighting.title}</b><br>
           Segnalato da: ${sighting.UserUsername}<br>
-          <button class="details-btn" data-sighting-id="${sighting.id}" style="background-color: #f97316; color: white; padding: 4px 8px; border: none; border-radius: 4px; cursor: pointer; margin-top: 8px;">Vedi dettagli</button>`;
+          <div style="text-align: center; margin-top: 8px;">
+            <button class="details-btn" data-sighting-id="${sighting.id}" style="background-color: #f97316; color: white; padding: 4px 8px; border: none; border-radius: 4px; cursor: pointer;">Vedi dettagli</button>
+          </div>`;
 
         const marker = L.marker([sighting.latitude, sighting.longitude], { icon: catIcon })
           .addTo(this.map)
           .bindPopup(popupContent);
           
-        // Aggiungi event listener quando il popup viene aperto
+        // event listener quando il popup viene aperto
         marker.on('popupopen', () => {
-          const btn = document.querySelector(`.details-btn[data-sighting-id="${sighting.id}"]`);
-          if (btn) {
-            btn.addEventListener('click', () => {
-              // Naviga alla pagina di dettaglio usando il router di Angular
-              this.router.navigate(['/catDetails', sighting.id]);
-            });
-          }
+          setTimeout(() => {
+            const btn = document.querySelector(`.details-btn[data-sighting-id="${sighting.id}"]`);
+            console.log("Button found:", btn);
+            if (btn) {
+              btn.addEventListener('click', () => { 
+                // Sintassi corretta per navigare con queryParams
+                this.router.navigate(['/catDetails'], { queryParams: { id: sighting.id } });
+              });
+            }
+          }, 50); // Piccolo ritardo per assicurarsi che il DOM sia aggiornato
         });
       });
   }
 
+  handleMapClick(e: L.LeafletMouseEvent) {
+    // Se esiste già un marker temporaneo, lo rimuovo
+      if (this.tempMarker) {
+        this.map.removeLayer(this.tempMarker);
+        this.tempMarker = null;
+        return;
+      }
+      
+      // nuovo marker temporaneo
+      this.tempMarker = L.marker(e.latlng, { icon: addIcon }).addTo(this.map);
+      
+      // popup informativo con bottone
+      const popupContent = `
+        <div style="text-align: center; margin: 5px;">
+          <b>Nuovo avvistamento</b><br>
+          <button class="add-sighting-btn" style="background-color: #f97316; color: white; padding: 4px 8px; border: none; border-radius: 4px; cursor: pointer; margin-top: 8px;">Aggiungi avvistamento</button>
+        </div>`;
+        
+      this.tempMarker.bindPopup(popupContent)
+        .openPopup();
+                    
+      // event listener per il click sul bottone nel popup
+      this.tempMarker.on('popupopen', () => {
+        setTimeout(() => {
+          const btn = document.querySelector('.add-sighting-btn');
+          console.log("Add button found:", btn);
+          if (btn) {
+            btn.addEventListener('click', () => { 
+              this.router.navigate(
+                ['/sightingCreation'], 
+                { queryParams: { lat: e.latlng.lat, lng: e.latlng.lng }}
+              );
+            });
+          }
+        }, 50);
+      });
+  }
 }
 
 
