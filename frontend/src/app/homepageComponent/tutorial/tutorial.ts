@@ -4,7 +4,8 @@ import { Component } from '@angular/core';
   selector: 'app-tutorial',
   imports: [],
   templateUrl: './tutorial.html',
-  styleUrl: './tutorial.scss'
+  styleUrl: './tutorial.scss',
+  standalone: true
 })
 export class Tutorial {
 

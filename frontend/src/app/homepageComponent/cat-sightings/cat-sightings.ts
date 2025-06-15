@@ -14,7 +14,8 @@ import { catIcon, userIcon, addIcon } from './markerIcon';
   selector: 'app-cat-sightings',
   imports: [MatTabsModule, CommonModule, MatPaginatorModule, RouterLink],
   templateUrl: './cat-sightings.html',
-  styleUrl: './cat-sightings.scss'
+  styleUrl: './cat-sightings.scss',
+  standalone: true
 })
 export class CatSightings {
   

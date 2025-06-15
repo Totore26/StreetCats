@@ -10,7 +10,8 @@ import { CommonModule } from '@angular/common';
   selector: 'login',
   imports: [CommonModule, RouterLink, ReactiveFormsModule],
   templateUrl: './login.html',
-  styleUrl: './login.scss'
+  styleUrl: './login.scss',
+  standalone: true
 })
 export class Login {
   

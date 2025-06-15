@@ -9,7 +9,8 @@ import { CommonModule } from '@angular/common';
   selector: 'app-signup',
   imports: [CommonModule, RouterLink, ReactiveFormsModule],
   templateUrl: './signup.html',
-  styleUrl: './signup.scss'
+  styleUrl: './signup.scss',
+  standalone: true
 })
 export class Signup {
   toastr = inject(ToastrService);  
