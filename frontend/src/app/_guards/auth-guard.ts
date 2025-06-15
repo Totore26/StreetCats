@@ -10,7 +10,7 @@ export const authGuard: CanActivateFn = (route, state) => {
 
   if (authService.isUserAuthenticated()) return true;
   else {
-    toastr.warning("Please, login to access this feature", "Unauthorized!", {
+    toastr.warning("Esegui il login per avere accesso a questa feature", "Non autorizzato!", {
       timeOut: 4000, 
       progressBar: true, 
     });

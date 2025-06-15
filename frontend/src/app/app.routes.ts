@@ -1,10 +1,11 @@
 import { Routes } from '@angular/router';
-import { CatSightings } from './homepage/cat-sightings/cat-sightings';
-import { CatDetails } from './homepage/cat-details/cat-details';
-import { SightingCreation } from './homepage/sighting-creation/sighting-creation';
-import { Login } from './login/login';
-import { Signup } from './signup/signup';
-import { Profile } from './homepage/profile/profile';
+import { CatSightings } from './homepageComponent/cat-sightings/cat-sightings';
+import { CatDetails } from './homepageComponent/cat-details/cat-details';
+import { SightingCreation } from './homepageComponent/sighting-creation/sighting-creation';
+import { Login } from './authComponent/login/login';
+import { Signup } from './authComponent/signup/signup';
+import { Profile } from './homepageComponent/profile/profile';
+import { Tutorial } from './homepageComponent/tutorial/tutorial';
 
 import { authGuard } from './_guards/auth-guard';
 
@@ -13,6 +14,7 @@ export const routes: Routes = [
     { path: 'catDetails', component: CatDetails, title: 'Cat Details' },
     { path: 'login', component: Login, title: 'Login' },
     { path: 'signup', component: Signup, title: 'Sign Up' },
+    { path: 'tutorial', component: Tutorial, title: 'Tutorial' },
     { 
         path: 'sightingCreation', 
         component: SightingCreation, 

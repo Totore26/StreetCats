@@ -1,0 +1,55 @@
+<nav class="flex flex-col max-[400px]:items-center min-[400px]:flex-row min-[400px]:justify-between min-[400px]:items-center items-start px-3 sm:px-6 py-2 sm:py-3 bg-white shadow">
+  <!-- Logo e link Home insieme -->
+  <div class="flex flex-col min-[400px]:flex-row min-[400px]:items-center gap-2 sm:gap-4 md:gap-6">
+    <div class="mb-3 min-[400px]:mb-0">
+      <a routerLink="/" class="no-underline text-current">
+        <span class="text-2xl sm:text-3xl md:text-4xl font-bold" style="font-family: 'Comic Sans MS', sans-serif;">
+          Street<span class="text-orange-400">Cats</span> <span class="text-base sm:text-base md:text-lg">🐾</span>
+        </span>
+      </a>
+    </div>
+    
+    <!-- Link Home (vicino al logo in visualizzazione orizzontale) -->
+    <a routerLink="/" routerLinkActive="active text-orange-400 border-b-2 border-orange-400" 
+       class="no-underline text-gray-700 text-xs sm:text-sm md:text-base font-medium py-1 sm:py-2 px-0.5 relative transition duration-200 hover:text-orange-400 max-[400px]:hidden min-[400px]:block">
+      Home
+    </a>
+
+    <a routerLink="/tutorial" routerLinkActive="active text-orange-400 border-b-2 border-orange-400" 
+       class="no-underline text-gray-700 text-xs sm:text-sm md:text-base font-medium py-1 sm:py-2 px-0.5 relative transition duration-200 hover:text-orange-400 max-[400px]:hidden min-[400px]:block">
+      Tutorial
+    </a>
+
+  </div>
+  
+  <!-- Altri pulsanti/links -->
+  <div class="flex flex-row items-center gap-2 sm:gap-3 md:gap-4 max-[400px]:justify-between min-[400px]:justify-center min-[400px]:self-center w-full min-[400px]:w-auto">
+    <!-- Link Home (solo per visualizzazione mobile) -->
+    <a routerLink="/" routerLinkActive="active text-orange-400 border-b-2 border-orange-400" 
+       class="no-underline text-gray-700 text-xs sm:text-sm md:text-base font-medium py-1 sm:py-2 px-0.5 relative transition duration-200 hover:text-orange-400 min-[400px]:hidden self-center">
+      Home
+    </a>
+
+    <a routerLink="/tutorial" routerLinkActive="active text-orange-400 border-b-2 border-orange-400" 
+      class="no-underline text-gray-700 text-xs sm:text-sm md:text-base font-medium py-1 sm:py-2 px-0.5 relative transition duration-200 hover:text-orange-400 min-[400px]:hidden self-center">
+      Tutorial
+    </a>
+
+    @if (isUserAuthenticated()) {
+      <a routerLink="/profile" routerLinkActive="active text-orange-400 border-b-2 border-orange-400" 
+         class="no-underline text-gray-700 text-xs sm:text-sm md:text-base font-medium py-1 sm:py-2 px-0.5 relative transition duration-200 hover:text-orange-400 self-center">
+        Profilo
+      </a>
+      <button (click)="logout()" class="no-underline text-xs sm:text-sm md:text-base font-medium py-1 sm:py-2 px-2 sm:px-3 md:px-4 rounded transition duration-200 bg-red-500 text-white cursor-pointer hover:bg-red-600 self-center">
+        Logout
+      </button>
+    } @else {
+      <a routerLink="/signup" class="no-underline text-gray-700 text-xs sm:text-sm md:text-base font-medium py-1 sm:py-2 px-0.5 relative transition duration-200 hover:text-orange-400 self-center">
+        Signup
+      </a>
+      <a routerLink="/login" class="no-underline text-xs sm:text-sm md:text-base font-medium py-1 sm:py-2 px-2 sm:px-3 md:px-4 rounded transition duration-200 bg-orange-400 text-white cursor-pointer hover:bg-orange-500 self-center">
+        Login
+      </a>
+    }
+  </div>
+</nav>

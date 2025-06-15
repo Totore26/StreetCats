@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { MatSliderModule } from '@angular/material/slider';
 import { CommonModule } from '@angular/common';
-import { Navbar } from './navbar/navbar';
-import { Footer } from './footer/footer';
+import { Navbar } from './navbarComponent/navbar';
+import { Footer } from './footerComponent/footer';
 
 
 @Component({

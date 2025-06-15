@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { RestBackendService } from '../_services/backend/rest-backend-service';
+import { RestBackendService } from '../../_services/backend/rest-backend-service';
 import { CommonModule } from '@angular/common';
 
 @Component({

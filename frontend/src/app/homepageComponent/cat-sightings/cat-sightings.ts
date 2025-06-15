@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import {MatTabsModule} from '@angular/material/tabs';
+import { MatTabsModule } from '@angular/material/tabs';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { Geolocalization } from '../../_services/geolocalization/geolocalization-service';
 import { CatSightingItem } from '../../_services/backend/rest-backend-models';
@@ -90,7 +90,7 @@ export class CatSightings {
         minZoom: 3,
     }).addTo(this.map);
 
-    this.map.on('click', (e: L.LeafletMouseEvent) => { this.handleMapClick(e);}); //listener per il click sulla mappa
+    this.map.on('click', (e: L.LeafletMouseEvent) => { this.setCreationMarker(e);}); //listener per il click sulla mappa
 
   } 
 
@@ -127,7 +127,6 @@ export class CatSightings {
         marker.on('popupopen', () => {
           setTimeout(() => {
             const btn = document.querySelector(`.details-btn[data-sighting-id="${sighting.id}"]`);
-            console.log("Button found:", btn);
             if (btn) {
               btn.addEventListener('click', () => { 
                 // Sintassi corretta per navigare con queryParams
@@ -139,7 +138,7 @@ export class CatSightings {
       });
   }
 
-  handleMapClick(e: L.LeafletMouseEvent) {
+  setCreationMarker(e: L.LeafletMouseEvent) {
     // Se esiste già un marker temporaneo, lo rimuovo
       if (this.tempMarker) {
         this.map.removeLayer(this.tempMarker);
@@ -150,32 +149,26 @@ export class CatSightings {
       // nuovo marker temporaneo
       this.tempMarker = L.marker(e.latlng, { icon: addIcon }).addTo(this.map);
       
-      // popup informativo con bottone
+      // popup informativo con solo un messaggio
       const popupContent = `
         <div style="text-align: center; margin: 5px;">
-          <button class="add-sighting-btn" style="background-color: #f97316; color: white; padding: 4px 8px; border: none; border-radius: 4px; cursor: pointer; margin-top: 8px;">aggiungi un nuovo<br>avvistamento qui</button>
+          <p>Clicca su questo gattino per aggiungere<br>un nuovo avvistamento qui</p>
         </div>`;
         
-      this.tempMarker.bindPopup(popupContent)
-        .openPopup();
-                    
-      // event listener per il click sul bottone nel popup
-      this.tempMarker.on('popupopen', () => {
-        setTimeout(() => {
-          const btn = document.querySelector('.add-sighting-btn');
-          console.log("Add button found:", btn);
-          if (btn) {
-            btn.addEventListener('click', () => { 
-              this.router.navigate(
-                ['/sightingCreation'], 
-                { queryParams: { lat: e.latlng.lat, lng: e.latlng.lng }}
-              );
-            });
-          }
-        }, 50);
+      // Apro subito il popup
+      this.tempMarker.bindPopup(popupContent).openPopup();
+      
+      // Aggiungo l'event listener direttamente sul marker
+      this.tempMarker.on('click', () => { 
+        this.router.navigate(
+          ['/sightingCreation'], 
+          { queryParams: { lat: e.latlng.lat, lng: e.latlng.lng }}
+        );
       });
   }
+  
 }
+      
 
 
 
