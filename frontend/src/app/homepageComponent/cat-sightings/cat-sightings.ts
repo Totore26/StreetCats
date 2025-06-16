@@ -1,5 +1,5 @@
 import { Component, inject, ViewChild } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { Router, RouterLink, ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
@@ -23,6 +23,7 @@ export class CatSightings {
   @ViewChild(MatTabGroup) tabGroup!: MatTabGroup;
 
   router = inject(Router);
+  route = inject(ActivatedRoute);
   geoLoc = inject(Geolocalization)
   restBackendService = inject(RestBackendService);
   toastr = inject(ToastrService);
@@ -43,6 +44,20 @@ export class CatSightings {
     this.fetchData();
     this.initMap();
     this.setUserPosition();
+    
+    // Controlla se ci sono parametri di navigazione per centrare la mappa
+    this.route.queryParamMap.subscribe(params => {
+      if (params.get('showOnMap') === 'true' && params.get('lat') && params.get('lng')) {
+        const lat = Number(params.get('lat'));
+        const lng = Number(params.get('lng'));
+        if (!isNaN(lat) && !isNaN(lng)) {
+          // Attendiamo che la mappa sia completamente caricata
+          setTimeout(() => {
+            this.goToMapLocation(lat, lng);
+          }, 200);
+        }
+      }
+    });
   }
 
   /*---------------------------------------------*

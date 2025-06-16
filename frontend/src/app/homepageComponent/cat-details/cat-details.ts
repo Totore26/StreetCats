@@ -23,6 +23,7 @@ export class CatDetails implements OnInit {
   restBackendService = inject(RestBackendService);
   toastr = inject(ToastrService);
   route = inject(ActivatedRoute);
+  router = inject(Router);
 
   @Input() currentSighting: CatSightingItem = {
     title: '',
@@ -34,7 +35,7 @@ export class CatDetails implements OnInit {
   sightingId: string | null = null;
   showAllComments = false;
 
-  constructor(private router: Router) {}
+  constructor() {}
   
   ngOnInit(): void {
     // Verifica se c'è un ID nei parametri del percorso
@@ -109,5 +110,20 @@ export class CatDetails implements OnInit {
   
   onShowAllComments(): void {
     this.showAllComments = true;
+  }
+  
+  // Nuova funzione per navigare alla mappa e visualizzare la posizione
+  goToMapLocation() {
+    if (this.currentSighting && this.currentSighting.latitude && this.currentSighting.longitude) {
+      this.router.navigate(['/cat-sightings'], { 
+        queryParams: { 
+          showOnMap: 'true',
+          lat: this.currentSighting.latitude, 
+          lng: this.currentSighting.longitude 
+        }
+      });
+    } else {
+      this.toastr.error("Coordinate non disponibili per questo avvistamento", "Errore:");
+    }
   }
 }

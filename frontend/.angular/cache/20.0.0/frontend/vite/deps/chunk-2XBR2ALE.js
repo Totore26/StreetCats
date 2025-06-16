@@ -2,19 +2,11 @@ import {
   DomPortalOutlet,
   PortalModule,
   TemplatePortal
-} from "./chunk-L2V4DHJI.js";
-import {
-  ScrollDispatcher,
-  ScrollingModule,
-  ViewportRuler
-} from "./chunk-SLV6SY6Q.js";
+} from "./chunk-JUPGBXL5.js";
 import {
   _isTestEnvironment,
   coerceCssPixelValue
-} from "./chunk-CIA4ZLMS.js";
-import {
-  supportsScrollBehavior
-} from "./chunk-EOFW2REK.js";
+} from "./chunk-64V4NXWL.js";
 import {
   ESCAPE,
   _CdkPrivateStyleLoader,
@@ -22,17 +14,25 @@ import {
   _getEventTarget,
   coerceArray,
   hasModifierKey
-} from "./chunk-JALW5LKY.js";
+} from "./chunk-TKCHN5CA.js";
+import {
+  ScrollDispatcher,
+  ScrollingModule,
+  ViewportRuler
+} from "./chunk-O64LG45A.js";
+import {
+  supportsScrollBehavior
+} from "./chunk-EOFW2REK.js";
 import {
   Platform
-} from "./chunk-PVUDT5IK.js";
+} from "./chunk-K2THXRXF.js";
 import {
   BidiModule,
   Directionality
-} from "./chunk-ZXDURZYA.js";
+} from "./chunk-RYUE742H.js";
 import {
   Location
-} from "./chunk-5PAVN3EA.js";
+} from "./chunk-JWIEBJPE.js";
 import {
   ANIMATION_MODULE_TYPE,
   ApplicationRef,
@@ -52,17 +52,13 @@ import {
   Output,
   Renderer2,
   RendererFactory2,
-  Subject,
-  Subscription,
   TemplateRef,
   ViewContainerRef,
   ViewEncapsulation,
   afterNextRender,
   booleanAttribute,
-  filter,
   inject,
   setClassMetadata,
-  takeWhile,
   ɵɵNgOnChangesFeature,
   ɵɵdefineComponent,
   ɵɵdefineDirective,
@@ -70,7 +66,13 @@ import {
   ɵɵdefineInjector,
   ɵɵdefineNgModule,
   ɵɵgetInheritedFactory
-} from "./chunk-UITIGP3A.js";
+} from "./chunk-4FKQ5F2K.js";
+import {
+  Subject,
+  Subscription,
+  filter,
+  takeWhile
+} from "./chunk-3KKC7HMJ.js";
 import {
   __spreadProps,
   __spreadValues
@@ -2886,4 +2888,4 @@ export {
   CdkConnectedOverlay,
   OverlayModule
 };
-//# sourceMappingURL=chunk-WJBCGEXJ.js.map
+//# sourceMappingURL=chunk-2XBR2ALE.js.map
