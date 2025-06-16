@@ -17,13 +17,16 @@
           @for (sighting of displayedSightings; track sighting.id) {
             <div class="border rounded-lg shadow-md p-2 sm:p-4 hover:shadow-lg transition-shadow w-full">
               <h3 class="font-semibold text-xs sm:text-sm mb-1 sm:mb-2 text-center">{{sighting.title || 'N/A'}}</h3>
-              <div class="mb-1 text-xs text-center"><strong>Pubblicato:</strong> {{sighting.updatedAt || 'Non specificato'}}</div>
+              <div class="mb-1 text-xs text-center"><strong>Pubblicato:</strong> {{formatDateItalian(sighting.updatedAt ? sighting.updatedAt.toString() : '') || 'Non specificato'}}</div>
               <div class="mt-2 sm:mt-3 flex flex-col items-center">
-                <a [routerLink]="['/catDetails', sighting.id]" class="bg-gray-300 hover:bg-gray-400 text-white px-2 sm:px-3 py-1 rounded-md text-xs sm:text-sm mb-1 sm:mb-2 w-full max-w-[150px] sm:max-w-[200px]">
+                <button 
+                  (click)="router.navigate(['/catDetails'], { queryParams: { id: sighting.id } })"
+                  class="bg-gray-300 hover:bg-gray-400 text-white px-2 sm:px-3 py-1 rounded-md text-xs sm:text-sm mb-1 sm:mb-2 w-full max-w-[150px] sm:max-w-[200px]">
                   Dettagli
-                </a>
-                <button class="bg-orange-400 hover:bg-orange-500 text-white px-2 sm:px-3 py-1 rounded-md text-xs sm:text-sm w-full max-w-[150px] sm:max-w-[200px]"
-                        (click)="map.setView([sighting.latitude, sighting.longitude], 17)">
+                </button>
+                <button 
+                  class="bg-orange-400 hover:bg-orange-500 text-white px-2 sm:px-3 py-1 rounded-md text-xs sm:text-sm w-full max-w-[150px] sm:max-w-[200px]"
+                  (click)="goToMapLocation(sighting.latitude, sighting.longitude)">
                   Visualizza sulla mappa
                 </button>
               </div>

@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ViewChild } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatTabsModule } from '@angular/material/tabs';
@@ -9,6 +9,7 @@ import { RestBackendService } from '../../_services/backend/rest-backend-service
 import { ToastrService } from 'ngx-toastr';
 import * as L from 'leaflet';
 import { catIcon, userIcon, addIcon } from './markerIcon';
+import { MatTabGroup } from '@angular/material/tabs';
 
 @Component({
   selector: 'app-cat-sightings',
@@ -19,6 +20,8 @@ import { catIcon, userIcon, addIcon } from './markerIcon';
 })
 export class CatSightings {
   
+  @ViewChild(MatTabGroup) tabGroup!: MatTabGroup;
+
   router = inject(Router);
   geoLoc = inject(Geolocalization)
   restBackendService = inject(RestBackendService);
@@ -58,6 +61,25 @@ export class CatSightings {
       error: (err) => { console.error('Errore nel recupero degli avvistamenti dei gatti:', err); }, 
       complete: () => { console.log('Recupero avvistamenti gatti completato'); }
     });
+  }
+
+  // Formatta le date nel fuso orario italiano (dd/mm/yyyy hh:mm)
+  formatDateItalian(dateString: string): string {
+    if (!dateString) return '';
+    
+    const date = new Date(dateString);
+    
+    // Opzioni per formattare la data nel fuso orario italiano
+    const options: Intl.DateTimeFormatOptions = {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      timeZone: 'Europe/Rome'
+    };
+    
+    return new Intl.DateTimeFormat('it-IT', options).format(date);
   }
 
   /*---------------------------------------------*
@@ -113,9 +135,13 @@ export class CatSightings {
   setMarkersOnMap() {
     
     this.catSightings.forEach(sighting => {
+        // Formatto la data per il popup
+        const formattedDate = this.formatDateItalian(sighting.updatedAt ? sighting.updatedAt.toString() : '');
+        
         const popupContent = `
           <b>${sighting.title}</b><br>
           Segnalato da: ${sighting.UserUsername}<br>
+          Data: ${formattedDate}<br>
           <div style="text-align: center; margin-top: 8px;">
             <button class="details-btn" data-sighting-id="${sighting.id}" style="background-color: #f97316; color: white; padding: 4px 8px; border: none; border-radius: 4px; cursor: pointer;">Vedi dettagli</button>
           </div>`;
@@ -167,9 +193,33 @@ export class CatSightings {
         );
       });
   }
-  
-}
+
+  // Metodo per navigare alla posizione sulla mappa
+  goToMapLocation(latitude: number, longitude: number) {
+    // Imposta l'indice della tab della mappa (0)
+    if (this.tabGroup) {
+      this.tabGroup.selectedIndex = 0;
       
+      // Aggiorniamo la vista della mappa dopo che la tab è stata cambiata
+      setTimeout(() => {
+        if (this.map) {
+          this.map.setView([latitude, longitude], 17);
+          
+          // Cerca e apre il popup del marker corrispondente
+          this.map.eachLayer((layer: any) => {
+            if (layer instanceof L.Marker && 
+                Math.abs(layer.getLatLng().lat - latitude) < 0.0001 && 
+                Math.abs(layer.getLatLng().lng - longitude) < 0.0001) {
+              layer.openPopup();
+            }
+          });
+        }
+      }, 100);
+    }
+  }
+
+}
+
 
 
 

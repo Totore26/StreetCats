@@ -52,7 +52,7 @@ CatSighting.addScope('full', {
 
 // Scope per caricare gli avvistamenti sulla mappa e sulla lista
 CatSighting.addScope('all', {  
-  order: [['updatedAt', 'ASC' ]], // Ordina in modo da mostrare i nuovi avvistamenti per primi TODO verifica funzionamento
+  order: [['updatedAt', 'DESC' ]], // Ordina in modo da mostrare i nuovi avvistamenti per primi (i più recenti)
 });
 
 

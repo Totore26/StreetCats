@@ -1,16 +1,14 @@
 import {
-  _CdkPrivateStyleLoader
-} from "./chunk-REBUB457.js";
-import {
   Platform,
   coerceElement,
   coerceNumberProperty
-} from "./chunk-Y4W3MKP7.js";
+} from "./chunk-PVUDT5IK.js";
 import {
   BidiModule
 } from "./chunk-ZXDURZYA.js";
 import {
   APP_ID,
+  ApplicationRef,
   BehaviorSubject,
   CSP_NONCE,
   ChangeDetectionStrategy,
@@ -18,6 +16,7 @@ import {
   DOCUMENT,
   Directive,
   ElementRef,
+  EnvironmentInjector,
   EventEmitter,
   Injectable,
   InjectionToken,
@@ -36,6 +35,7 @@ import {
   booleanAttribute,
   combineLatest,
   concat,
+  createComponent,
   debounceTime,
   distinctUntilChanged,
   effect,
@@ -632,6 +632,55 @@ var CdkMonitorFocus = class _CdkMonitorFocus {
       type: Output
     }]
   });
+})();
+
+// node_modules/@angular/cdk/fesm2022/style-loader-B2sGQXxD.mjs
+var appsWithLoaders = /* @__PURE__ */ new WeakMap();
+var _CdkPrivateStyleLoader = class __CdkPrivateStyleLoader {
+  _appRef;
+  _injector = inject(Injector);
+  _environmentInjector = inject(EnvironmentInjector);
+  /**
+   * Loads a set of styles.
+   * @param loader Component which will be instantiated to load the styles.
+   */
+  load(loader) {
+    const appRef = this._appRef = this._appRef || this._injector.get(ApplicationRef);
+    let data = appsWithLoaders.get(appRef);
+    if (!data) {
+      data = {
+        loaders: /* @__PURE__ */ new Set(),
+        refs: []
+      };
+      appsWithLoaders.set(appRef, data);
+      appRef.onDestroy(() => {
+        appsWithLoaders.get(appRef)?.refs.forEach((ref) => ref.destroy());
+        appsWithLoaders.delete(appRef);
+      });
+    }
+    if (!data.loaders.has(loader)) {
+      data.loaders.add(loader);
+      data.refs.push(createComponent(loader, {
+        environmentInjector: this._environmentInjector
+      }));
+    }
+  }
+  static ɵfac = function _CdkPrivateStyleLoader_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || __CdkPrivateStyleLoader)();
+  };
+  static ɵprov = ɵɵdefineInjectable({
+    token: __CdkPrivateStyleLoader,
+    factory: __CdkPrivateStyleLoader.ɵfac,
+    providedIn: "root"
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(_CdkPrivateStyleLoader, [{
+    type: Injectable,
+    args: [{
+      providedIn: "root"
+    }]
+  }], null, null);
 })();
 
 // node_modules/@angular/cdk/fesm2022/private.mjs
@@ -3134,6 +3183,7 @@ export {
   normalizePassiveListenerOptions,
   FocusMonitor,
   CdkMonitorFocus,
+  _CdkPrivateStyleLoader,
   _VisuallyHiddenLoader,
   coerceArray,
   MediaMatcher,
@@ -3150,4 +3200,4 @@ export {
   AriaDescriber,
   MatCommonModule
 };
-//# sourceMappingURL=chunk-5O3EDIOU.js.map
+//# sourceMappingURL=chunk-JALW5LKY.js.map
