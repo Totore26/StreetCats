@@ -29,29 +29,34 @@ User.hasMany(CatSighting); // Un utente può avere più gatti (avvistamenti)
 
 // Scope:
 
-// Scope per caricare gli avvistamenti completi di autore e numero totale di commenti per avvistamento
-CatSighting.addScope('full', {  
-  attributes: {
-    include: [
-      [
-        Sequelize.literal(`(
-          SELECT COUNT(*)
-          FROM "Comments" AS "Comment"
-          WHERE "Comment"."CatSightingId" = "CatSighting"."id"
-        )`),
-        'totalComments'
+// Scope per caricare un avvistamento con tutti i commenti e fotoUrl
+  CatSighting.addScope('full', {  
+    attributes: {
+      include: [
+        [
+          Sequelize.literal(`(
+            SELECT COUNT(*)
+            FROM "Comments" AS "Comment"
+            WHERE "Comment"."CatSightingId" = "CatSighting"."id"
+          )`),
+          'totalComments'
+        ]
       ]
+    },
+    include: [
+      {
+        model: Comment,
+        separate: true, 
+        order: [['createdAt', 'DESC']]  // Ordina i commenti dal più recente al più vecchio
+      }
     ]
-  },
-  include: [
-    {
-      model: Comment
-    }
-  ]
-});
+  });
 
-// Scope per caricare gli avvistamenti sulla mappa e sulla lista
+// Scope per caricare tutti gli avvistamenti sulla mappa e sulla lista (senza commenti e foto)
 CatSighting.addScope('all', {  
+  attributes: {
+    exclude: ['photo'] 
+  },
   order: [['updatedAt', 'DESC' ]], // Ordina in modo da mostrare i nuovi avvistamenti per primi (i più recenti)
 });
 

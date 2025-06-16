@@ -1,16 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
-import { CatSightingItem } from '../../_services/backend/rest-backend-models';
-
-// Interfaccia per i commenti
-interface Comment {
-  id: string;
-  author: string;
-  text: string;
-  date: Date;
-}
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { Router, RouterLink, ActivatedRoute } from '@angular/router';
+import { CatSightingItem, CommentItem } from '../../_services/backend/rest-backend-models';
+import { RestBackendService } from '../../_services/backend/rest-backend-service';
+import { ToastrService } from 'ngx-toastr';
+import { Comments } from '../commentsComponent/comments';
 
 @Component({
   selector: 'app-cat-details',
@@ -18,12 +13,16 @@ interface Comment {
   imports: [
     CommonModule, 
     ReactiveFormsModule, 
-    RouterLink
+    RouterLink,
+    Comments
   ],
   templateUrl: './cat-details.html',
   styleUrl: './cat-details.scss'
 })
 export class CatDetails implements OnInit {
+  restBackendService = inject(RestBackendService);
+  toastr = inject(ToastrService);
+  route = inject(ActivatedRoute);
 
   @Input() currentSighting: CatSightingItem = {
     title: '',
@@ -32,58 +31,83 @@ export class CatDetails implements OnInit {
     longitude: 0
   };
 
-  commentForm: FormGroup;
-  
-  // Array dei commenti (per esempio)
-  comments: Comment[] = [];
-  
-  // Numero massimo di commenti da mostrare nella visualizzazione ridotta
-  maxCommentsToShow = 2;
+  sightingId: string | null = null;
+  showAllComments = false;
 
-  constructor(private fb: FormBuilder, private router: Router) {
-    this.commentForm = this.fb.group({
-      author: ['', Validators.required],
-      text: ['', Validators.required]
-    });
-    
-    // Dati di esempio - in produzione questi verrebbero caricati da un servizio
-    this.comments = [
-      { id: '1', author: 'Marco Rossi', text: 'Ho visto lo stesso gatto ieri nella stessa zona!', date: new Date(2023, 6, 15) },
-      { id: '2', author: 'Laura Bianchi', text: 'Questo gatto sembra essere quello che si aggira spesso vicino al parco.', date: new Date(2023, 6, 14) },
-      { id: '3', author: 'Giovanni Verdi', text: 'Potrebbe essere il gatto del signor Mario, quello che abita all\'angolo.', date: new Date(2023, 6, 13) },
-      { id: '4', author: 'Anna Neri', text: 'L\'ho visto mangiare vicino al ristorante in via Roma.', date: new Date(2023, 6, 12) }
-    ];
-  }
-
+  constructor(private router: Router) {}
+  
   ngOnInit(): void {
-    // Inizializzazione del componente
+    // Verifica se c'è un ID nei parametri del percorso
+    this.route.paramMap.subscribe(params => {
+      const paramId = params.get('id');
+      if (paramId) {
+        this.sightingId = paramId;
+        this.fetchData();
+        return;
+      }
+      
+      // Se non presente nei parametri del percorso, cerca nei query parameters
+      this.route.queryParamMap.subscribe(queryParams => {
+        const queryId = queryParams.get('id');
+        if (queryId) {
+          this.sightingId = queryId;
+          this.fetchData();
+          return;
+        }
+        
+        this.toastr.error("ID avvistamento non trovato", "Errore:");
+      });
+    });
   }
 
-  onSubmitComment(): void {
-    if (this.commentForm.valid) {
-      // Crea un nuovo commento
-      const newComment: Comment = {
-        id: Date.now().toString(),
-        author: this.commentForm.value.author,
-        text: this.commentForm.value.text,
-        date: new Date()
-      };
-      
-      // Aggiungi il commento all'inizio dell'array
-      this.comments.unshift(newComment);
-      
-      // Reset form
-      this.commentForm.reset();
+  fetchData() {
+    if (!this.sightingId) return;
+    
+    this.restBackendService.getCatSightingDetails(Number(this.sightingId)).subscribe({
+      next: (data) => { 
+        if (data) {
+          this.currentSighting = data;
+          
+          // Assicuriamo che ci sia sempre un array Comments anche se non è presente nella risposta
+          if (!this.currentSighting.Comments) {
+            this.currentSighting.Comments = [];
+          }
+        } else {
+          this.toastr.info("Nessun avvistamento trovato", "Info:", { progressBar: true });
+        }
+      },
+      error: (err) => { 
+        console.error('Errore nel recupero dei dettagli dell\'avvistamento:', err);
+        this.toastr.error("Si è verificato un errore durante il caricamento dei dati", "Errore:");
+      }
+    });
+  }
+
+  formatDateItalian(dateString: string | Date | undefined): string {
+    if (!dateString) return '';
+    
+    const date = typeof dateString === 'string' ? new Date(dateString) : dateString;
+    
+    const options: Intl.DateTimeFormatOptions = {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      timeZone: 'Europe/Rome'
+    };
+    
+    return new Intl.DateTimeFormat('it-IT', options).format(date);
+  }
+
+  onCommentAdded(newComment: CommentItem): void {
+    if (!this.currentSighting.Comments) {
+      this.currentSighting.Comments = [];
     }
+    this.currentSighting.Comments.unshift(newComment);
   }
   
-  showAllComments(): void {
-    // In un'applicazione reale, questo potrebbe navigare a una vista separata
-    // o espandere la vista corrente
-    // Per ora, navighiamo a una pagina ipotetica di commenti
-    this.router.navigate(['/cat-comments', this.currentSighting.id || 0]);
-    
-    // Alternativa: se vuoi solo espandere la vista corrente
-    // this.maxCommentsToShow = this.comments.length;
+  onShowAllComments(): void {
+    this.showAllComments = true;
   }
 }
