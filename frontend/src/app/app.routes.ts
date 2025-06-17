@@ -5,7 +5,6 @@ import { SightingCreation } from './homepageComponent/sighting-creation/sighting
 import { Login } from './authComponent/login/login';
 import { Signup } from './authComponent/signup/signup';
 import { Profile } from './homepageComponent/profile/profile';
-import { Tutorial } from './homepageComponent/tutorial/tutorial';
 
 import { authGuard } from './_guards/auth-guard';
 
@@ -14,7 +13,6 @@ export const routes: Routes = [
     { path: 'catDetails', component: CatDetails, title: 'Cat Details' },
     { path: 'login', component: Login, title: 'Login' },
     { path: 'signup', component: Signup, title: 'Sign Up' },
-    { path: 'tutorial', component: Tutorial, title: 'Tutorial' },
     { 
         path: 'sightingCreation', 
         component: SightingCreation, 

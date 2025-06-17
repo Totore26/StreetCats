@@ -15,27 +15,17 @@
       Home
     </a>
 
-    <a routerLink="/tutorial" routerLinkActive="active text-orange-400 border-b-2 border-orange-400" 
-       class="no-underline text-gray-700 text-xs sm:text-sm md:text-base font-medium py-1 sm:py-2 px-0.5 relative transition duration-200 hover:text-orange-400 max-[400px]:hidden min-[400px]:block">
-      Tutorial
-    </a>
-
   </div>
   
   <!-- Altri pulsanti/links -->
   <div class="flex flex-row items-center gap-2 sm:gap-3 md:gap-4 max-[400px]:justify-between min-[400px]:justify-center min-[400px]:self-center w-full min-[400px]:w-auto">
-    <!-- Link Home (solo per visualizzazione mobile) -->
+    <!-- Link Home (solo per visualizzazione su schermi piccoli) -->
     <a routerLink="/" routerLinkActive="active text-orange-400 border-b-2 border-orange-400" 
        class="no-underline text-gray-700 text-xs sm:text-sm md:text-base font-medium py-1 sm:py-2 px-0.5 relative transition duration-200 hover:text-orange-400 min-[400px]:hidden self-center">
       Home
     </a>
 
-    <a routerLink="/tutorial" routerLinkActive="active text-orange-400 border-b-2 border-orange-400" 
-      class="no-underline text-gray-700 text-xs sm:text-sm md:text-base font-medium py-1 sm:py-2 px-0.5 relative transition duration-200 hover:text-orange-400 min-[400px]:hidden self-center">
-      Tutorial
-    </a>
-
-    @if (isUserAuthenticated()) {
+    @if (isUserAuthenticated()) { <!-- Utente autenticato -->
       <a routerLink="/profile" routerLinkActive="active text-orange-400 border-b-2 border-orange-400" 
          class="no-underline text-gray-700 text-xs sm:text-sm md:text-base font-medium py-1 sm:py-2 px-0.5 relative transition duration-200 hover:text-orange-400 self-center">
         Profilo
@@ -43,7 +33,7 @@
       <button (click)="logout()" class="no-underline text-xs sm:text-sm md:text-base font-medium py-1 sm:py-2 px-2 sm:px-3 md:px-4 rounded transition duration-200 bg-red-500 text-white cursor-pointer hover:bg-red-600 self-center">
         Logout
       </button>
-    } @else {
+    } @else { <!-- Utente non autenticato -->
       <a routerLink="/signup" class="no-underline text-gray-700 text-xs sm:text-sm md:text-base font-medium py-1 sm:py-2 px-0.5 relative transition duration-200 hover:text-orange-400 self-center">
         Signup
       </a>

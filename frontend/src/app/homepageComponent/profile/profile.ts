@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { AuthService } from '../../_services/auth/auth-service';
 
 @Component({
   selector: 'app-profile',
@@ -8,5 +9,11 @@ import { Component } from '@angular/core';
   standalone: true,
 })
 export class Profile {
+
+  authservice = inject(AuthService);
+
+  get user() {
+    return this.authservice.user();
+  }
 
 }
