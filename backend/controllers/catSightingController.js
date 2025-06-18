@@ -16,11 +16,12 @@ export class CatSightingController {
     }
 
     static async create(req) {
-
-        let catSighting = CatSighting.build(req.body);
+        
+        let data = { ...req.body }; // creo una copia cosi req rimane invariato 
+        if (req.file) data.photoPath = `/uploads/${req.file.filename}`;
+        
+        let catSighting = CatSighting.build(data);
         catSighting.UserUsername = req.username;
         return catSighting.save();
-
     }
-
 }

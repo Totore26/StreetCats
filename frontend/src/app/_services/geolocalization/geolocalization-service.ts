@@ -7,7 +7,6 @@ export class Geolocalization {
 
   constructor() { }
 
-  // per ottenere la posizione corrente dell'utente
   getUserPosition(): Promise<GeolocationPosition> {
     return new Promise((resolve, reject) => {
 
@@ -20,7 +19,7 @@ export class Geolocalization {
         {
           enableHighAccuracy: true, // Per una maggiore precisione
           timeout: 5000,            // Timeout dopo 5 secondi
-          maximumAge: 0             // Non usare posizioni in cache
+          maximumAge: 0             // Non uso posizioni in cache
         }
       );
     });

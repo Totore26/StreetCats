@@ -13,13 +13,11 @@ export function createModel(database) {
     },
     description: {
       type: DataTypes.TEXT,
-      allowNull: false,
-      validate: {
-        len: [0, 1000]
-      }
+      allowNull: false
     },
     image: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
+      allowNull: true
     },
     latitude: {
       type: DataTypes.FLOAT,

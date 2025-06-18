@@ -1,0 +1,33 @@
+{
+  "/login": {
+    "target": "http://192.168.1.186:3000",
+    "secure": false,
+    "changeOrigin": true
+  },
+  "/logout": {
+    "target": "http://192.168.1.186:3000",
+    "secure": false,
+    "changeOrigin": true
+  },
+  "/signup": {
+    "target": "http://192.168.1.186:3000",
+    "secure": false,
+    "changeOrigin": true
+  },
+  "/catsightings": {
+    "target": "http://192.168.1.186:3000",
+    "secure": false,
+    "changeOrigin": true
+  },
+  "/comments": {
+    "target": "http://192.168.1.186:3000",
+    "secure": false,
+    "changeOrigin": true
+  }
+}
+
+// per provare su telefono --> restbackendservice --> url = "";
+// e poi avviare angular con il comando: ng serve --host 0.0.0.0 --proxy-config proxy.conf.json
+// da telefono il link di connessione è http://192.168.1.186:4200 che sarebbe l ip del computer
+// la geolocalizzazione non funziona perche il sito non è https
+// funziona solo sullo stesso wifi

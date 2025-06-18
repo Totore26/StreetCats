@@ -31,8 +31,35 @@
       @if (previewImage) {
         <div class="mt-4">
           <p class="text-sm font-medium text-gray-700 mb-1">Anteprima:</p>
-          <div class="w-full">
-            <img [src]="previewImage" alt="Anteprima" class="w-full h-auto rounded-md">
+          
+          <!-- Contenitore immagine con dimensione fissa responsive-->
+          <div class="relative w-72 h-72 md:w-80 md:h-80 lg:w-96 lg:h-96 overflow-hidden border-2 border-gray-300 rounded-lg mx-auto">
+            <img 
+              [src]="previewImage" 
+              alt="Anteprima" 
+              class="absolute cursor-move touch-manipulation"
+              [style.transform]="'scale(' + imageScale + ') translate(' + imageX + 'px, ' + imageY + 'px)'"
+              (mousedown)="startDrag($event)"
+              (touchstart)="startDrag($event, true)">
+          </div>
+          
+          <!-- Controlli per lo zoom -->
+          <div class="mt-4 px-2">
+            <div class="flex items-center mb-2">
+              <span class="text-sm font-medium text-gray-700 mr-3">Zoom:</span>
+              <input 
+                type="range" 
+                min="1" 
+                max="3" 
+                step="0.1" 
+                class="w-full"
+                [value]="imageScale"
+                (input)="onZoomChange($event)">
+            </div>
+            
+            <p class="text-xs text-gray-600 italic text-center">
+              Trascina l'immagine per posizionarla e usa lo slider per regolare lo zoom
+            </p>
           </div>
         </div>
       }
@@ -100,7 +127,7 @@
         @if (lng) {
           <p><span class="font-semibold">Lng:</span> {{lng}}</p>
         }
-      </div>
+</div>
       @if (!lat || !lng) {
         <p class="text-amber-600 text-sm">Coordinate non disponibili</p>
       }

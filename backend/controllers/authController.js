@@ -66,9 +66,11 @@ export class AuthController {
 
     static async resetDatabase() {
 
-        blacklistedTokens.clear();
-        return await database.sync({ force: true });
-    
+        if (process.env.DEV_MODE === "true") {
+            blacklistedTokens.clear();
+            return await database.sync({ force: true });
+        } else
+            throw new Error("resetDatabase can only be called in DEV_MODE.");
     }
 
 }
