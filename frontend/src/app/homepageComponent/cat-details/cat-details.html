@@ -14,17 +14,15 @@
           <img src="https://material.angular.dev/assets/img/examples/shiba2.jpg" alt="Foto del gatto" class="w-full h-auto">
         </div>
         
-        <!-- Contenuto personalizzato -->
+        <!-- descizione e posizione -->
         <div class="p-6">
-          <p class="text-lg md:text-xl mb-6 text-center">
-            {{currentSighting.description || 'Nessuna descrizione disponibile'}}
-          </p>
+          <p class="text-lg md:text-xl mb-6 text-center" [innerHTML]="currentSighting.description || 'Nessuna descrizione disponibile'"></p>
           <div class="text-lg md:text-xl text-center">
             <p><strong>Posizione:</strong> Lat: {{currentSighting.latitude}}, Long: {{currentSighting.longitude}}</p>
           </div>
         </div>
         
-        <!-- Azioni personalizzate -->
+        <!-- bottone vedi sulla mappa -->
         <div class="p-6 flex justify-center">
           <div class="flex flex-col items-center gap-3">
             <button 

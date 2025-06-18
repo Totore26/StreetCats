@@ -34,19 +34,6 @@ import {
   __spreadValues
 } from "./chunk-3OV72XIM.js";
 
-// node_modules/@angular/cdk/fesm2022/css-pixel-value-C_HEqLhI.mjs
-function coerceCssPixelValue(value) {
-  if (value == null) {
-    return "";
-  }
-  return typeof value === "string" ? value : `${value}px`;
-}
-
-// node_modules/@angular/cdk/fesm2022/coercion.mjs
-function coerceBooleanProperty(value) {
-  return value != null && `${value}` !== "false";
-}
-
 // node_modules/@angular/cdk/fesm2022/test-environment-CT0XxPyp.mjs
 function _isTestEnvironment() {
   return (
@@ -100,6 +87,19 @@ function _animationsDisabled() {
   }
   const mediaMatcher = inject(MediaMatcher);
   return mediaMatcher.matchMedia("(prefers-reduced-motion)").matches;
+}
+
+// node_modules/@angular/cdk/fesm2022/css-pixel-value-C_HEqLhI.mjs
+function coerceCssPixelValue(value) {
+  if (value == null) {
+    return "";
+  }
+  return typeof value === "string" ? value : `${value}px`;
+}
+
+// node_modules/@angular/cdk/fesm2022/coercion.mjs
+function coerceBooleanProperty(value) {
+  return value != null && `${value}` !== "false";
 }
 
 // node_modules/@angular/material/fesm2022/ripple-BYgV4oZC.mjs
@@ -707,10 +707,10 @@ var _StructuralStylesLoader = class __StructuralStylesLoader {
 })();
 
 export {
-  coerceCssPixelValue,
-  coerceBooleanProperty,
   _isTestEnvironment,
   _animationsDisabled,
+  coerceCssPixelValue,
+  coerceBooleanProperty,
   RippleState,
   defaultRippleAnimationConfig,
   RippleRenderer,
@@ -718,4 +718,4 @@ export {
   MatRipple,
   _StructuralStylesLoader
 };
-//# sourceMappingURL=chunk-FMTBVRP2.js.map
+//# sourceMappingURL=chunk-CIA4ZLMS.js.map

@@ -1,10 +1,10 @@
 import {
+  withHttpTransferCache
+} from "./chunk-UWCBOOOU.js";
+import {
   EVENT_MANAGER_PLUGINS,
   EventManagerPlugin
 } from "./chunk-GIAZA2JD.js";
-import {
-  withHttpTransferCache
-} from "./chunk-UWCBOOOU.js";
 import {
   getDOM
 } from "./chunk-5PAVN3EA.js";
@@ -818,4 +818,4 @@ export {
    * License: MIT
    *)
 */
-//# sourceMappingURL=chunk-R63OS3VA.js.map
+//# sourceMappingURL=chunk-PQTMBJK5.js.map

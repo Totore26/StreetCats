@@ -30,8 +30,8 @@ export class CatSightings {
 
   catSightings: CatSightingItem[] = []; // Array per memorizzare gli avvistamenti dei gatti
   displayedSightings: CatSightingItem[] = []; // Array per memorizzare gli avvistamenti visualizzati nella pagina corrente
-  lat: number = 45.4642; // Milano latitudine
-  lon: number = 9.1900; // Milano longitudine
+lat: number = 40.8300; // Napoli Mergellina latitudine
+lon: number = 14.2169; // Napoli Mergellina longitudine
   map: any;
   tempMarker: L.Marker | null = null;
 
@@ -45,7 +45,7 @@ export class CatSightings {
     this.initMap();
     this.setUserPosition();
     
-    // Controlla se ci sono parametri di navigazione per centrare la mappa
+    // Controllo se ci sono parametri di navigazione per centrare la mappa
     this.route.queryParamMap.subscribe(params => {
       if (params.get('showOnMap') === 'true' && params.get('lat') && params.get('lng')) {
         const lat = Number(params.get('lat'));
