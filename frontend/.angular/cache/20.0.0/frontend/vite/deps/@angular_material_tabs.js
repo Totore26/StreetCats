@@ -1,17 +1,22 @@
 import {
   SharedResizeObserver
-} from "./chunk-T2LUHAO4.js";
+} from "./chunk-YOWOJA7B.js";
 import {
   CdkPortal,
   CdkPortalOutlet,
   TemplatePortal
-} from "./chunk-JUPGBXL5.js";
+} from "./chunk-L2V4DHJI.js";
+import {
+  CdkScrollable,
+  ViewportRuler
+} from "./chunk-SLV6SY6Q.js";
 import {
   MAT_RIPPLE_GLOBAL_OPTIONS,
   MatRipple,
   _StructuralStylesLoader,
   _animationsDisabled
-} from "./chunk-64V4NXWL.js";
+} from "./chunk-FMTBVRP2.js";
+import "./chunk-EOFW2REK.js";
 import {
   CdkMonitorFocus,
   CdkObserveContent,
@@ -23,27 +28,24 @@ import {
   _CdkPrivateStyleLoader,
   _IdGenerator,
   hasModifierKey
-} from "./chunk-TKCHN5CA.js";
-import {
-  CdkScrollable,
-  ViewportRuler
-} from "./chunk-O64LG45A.js";
-import "./chunk-EOFW2REK.js";
+} from "./chunk-JALW5LKY.js";
 import {
   Platform
-} from "./chunk-K2THXRXF.js";
+} from "./chunk-PVUDT5IK.js";
 import {
   Directionality
-} from "./chunk-RYUE742H.js";
-import "./chunk-JWIEBJPE.js";
+} from "./chunk-ZXDURZYA.js";
+import "./chunk-5PAVN3EA.js";
 import "./chunk-PSX7AJZG.js";
 import {
+  BehaviorSubject,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   ContentChild,
   ContentChildren,
   Directive,
+  EMPTY,
   ElementRef,
   EventEmitter,
   HostAttributeToken,
@@ -52,9 +54,12 @@ import {
   Input,
   NgModule,
   NgZone,
+  Observable,
   Output,
   QueryList,
   Renderer2,
+  Subject,
+  Subscription,
   TemplateRef,
   ViewChild,
   ViewChildren,
@@ -63,11 +68,20 @@ import {
   afterNextRender,
   booleanAttribute,
   computed,
+  debounceTime,
+  filter,
   forwardRef,
   inject,
+  merge,
   numberAttribute,
+  of,
   setClassMetadata,
   signal,
+  skip,
+  startWith,
+  switchMap,
+  takeUntil,
+  timer,
   ɵɵInheritDefinitionFeature,
   ɵɵNgOnChangesFeature,
   ɵɵProvidersFeature,
@@ -105,23 +119,7 @@ import {
   ɵɵtext,
   ɵɵtextInterpolate,
   ɵɵviewQuery
-} from "./chunk-4FKQ5F2K.js";
-import {
-  BehaviorSubject,
-  EMPTY,
-  Observable,
-  Subject,
-  Subscription,
-  debounceTime,
-  filter,
-  merge,
-  of,
-  skip,
-  startWith,
-  switchMap,
-  takeUntil,
-  timer
-} from "./chunk-3KKC7HMJ.js";
+} from "./chunk-UITIGP3A.js";
 import "./chunk-3OV72XIM.js";
 
 // node_modules/@angular/material/fesm2022/tabs.mjs

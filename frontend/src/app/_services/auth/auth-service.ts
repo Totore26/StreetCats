@@ -1,6 +1,7 @@
-import { Injectable, WritableSignal, computed, effect, signal } from '@angular/core';
+import { Injectable, WritableSignal, computed, effect, inject, signal } from '@angular/core';
 import { jwtDecode } from "jwt-decode";
 import { ToastrService } from 'ngx-toastr';
+import { RestBackendService } from '../backend/rest-backend-service';
 
 interface AuthState {
   user: string | null,
@@ -13,6 +14,8 @@ interface AuthState {
 })
 
 export class AuthService {
+
+  restBackendService = inject(RestBackendService);
   
   authState: WritableSignal<AuthState> = signal<AuthState>({
     user: this.getUser(),
@@ -83,6 +86,18 @@ export class AuthService {
   }
 
   logout() {
+    this.restBackendService.logout().subscribe({
+      next: () => {},
+      error: (err) => {
+        this.toastr.error("Si è verificato un errore durante il logout", "Errore", { progressBar: true });
+      },
+      complete: () => {
+        this.clearAuthState();
+      }
+    });
+  }
+
+  clearAuthState() {
     this.authState.set({
       user: null,
       token: null,

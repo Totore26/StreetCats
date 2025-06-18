@@ -1,5 +1,6 @@
 import express from "express";
 import { AuthController } from "../controllers/authController.js";
+import { requireAuth } from "../middleware/authorization.js";
 
 export const AuthRouter = express.Router();
 
@@ -85,10 +86,12 @@ AuthRouter.post("/signup", (req, res, next) => {
 /**
  * @swagger
  * /logout:
- *   get:
+ *   post:
  *     summary: Logs out the user
- *     description: Logs out the user
+ *     description: Invalidates the user's token
  *     tags: [Authentication]
+ *     security:
+ *       - bearerAuth: []
  *     produces:
  *       - application/json
  *     responses:
@@ -99,10 +102,26 @@ AuthRouter.post("/signup", (req, res, next) => {
  *       500:
  *         description: Server error
  */
-AuthRouter.get("/logout", (req, res, next) => {
-
-  AuthController.invalidateToken(req, res);
-  res.status(200).json({ message: "🔒 Logout effettuato 🔒" });
+AuthRouter.post("/logout", (req, res, next) => {
+  // Estrai il token dall'header Authorization
+  const authHeader = req.headers.authorization;
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return res.status(401).json({ error: "Token di autorizzazione mancante o non valido" });
+  }
+  
+  // Estrai il token rimuovendo "Bearer " dall'inizio
+  const token = authHeader.substring(7);
+  
+  // Prepara il token in vari modi possibili
+  req.token = token;
+  req.auth = { token };
+  req.user = { token };
+  req.body.token = token;
+  
+  AuthController.invalidateToken(req, res)
+    .then(() => { res.status(200).json({ message: "🔒 Token invalidato con successo! 🔒" }); })
+    .catch(next);
+    
 });
 
 if (process.env.DEV_MODE === "true") {

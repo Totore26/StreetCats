@@ -24,6 +24,11 @@ export class RestBackendService {
     return this.http.post<string>(url, loginRequest, this.httpOptions);
   }
 
+  logout() {
+    const url = `${this.url}/logout`;
+    return this.http.post(url, {} ,this.httpOptions);
+  }
+
   signup(signupRequest: AuthRequest){
     const url = `${this.url}/signup`; 
     console.log(signupRequest);
