@@ -21,6 +21,11 @@ export class SightingCreation implements OnInit, OnDestroy {
   markdownPreview: string = '';
   showMarkdownPreview: boolean = false;
   
+  // proprietà per controllare la dimensione dell'immagine
+  isFileTooLarge: boolean = false;
+  readonly MAX_FILE_SIZE_MB: number = 10; // Dimensione massima in MB
+  readonly MAX_FILE_SIZE_BYTES: number = 10 * 1024 * 1024; // Conversione in bytes
+  
   // Proprietà per il controllo dell'immagine
   imageScale: number = 1;
   imageX: number = 0;
@@ -121,6 +126,13 @@ export class SightingCreation implements OnInit, OnDestroy {
     const file = (event.target as HTMLInputElement).files?.[0];
     
     if (file) {
+      // Verifica la dimensione del file
+      if (file.size > this.MAX_FILE_SIZE_BYTES) {
+        this.isFileTooLarge = true;
+        return;
+      }
+      
+      this.isFileTooLarge = false;
       this.sightingForm.patchValue({
         photo: file
       });
@@ -133,6 +145,21 @@ export class SightingCreation implements OnInit, OnDestroy {
         this.resetImagePosition();
       };
       reader.readAsDataURL(file);
+    }
+  }
+
+  //Rimuove l'immagine caricata
+  removeImage() {
+    this.previewImage = null;
+    this.isFileTooLarge = false;
+    this.sightingForm.patchValue({
+      photo: null
+    });
+    
+    // Reset del campo input file
+    const fileInput = document.getElementById('photo') as HTMLInputElement;
+    if (fileInput) {
+      fileInput.value = '';
     }
   }
 
