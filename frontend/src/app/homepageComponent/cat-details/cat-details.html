@@ -9,9 +9,12 @@
           <p class="text-l md:text-2xl text-gray-600 text-center">Avvistato il: {{formatDateItalian(currentSighting.updatedAt)}}</p>
         </div>
         
-        <!-- Immagine -->
+        <!-- Usa l'immagine dal server se disponibile, altrimenti mostra l'immagine di default -->
         <div class="w-full flex justify-center p-4">
-          <img src="./defaultCatImage.png" alt="Foto del gatto" class="w-72 h-72 sm:w-80 sm:h-80 md:w-96 md:h-96 lg:w-[28rem] lg:h-[28rem] object-cover rounded-md">
+          <img 
+            [src]="getImageUrl()" 
+            alt="Foto del gatto" 
+            class="w-72 h-72 sm:w-80 sm:h-80 md:w-96 md:h-96 lg:w-[28rem] lg:h-[28rem] object-cover rounded-md">
         </div>
         
         <!-- descizione e posizione -->

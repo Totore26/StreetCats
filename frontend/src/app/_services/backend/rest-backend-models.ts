@@ -3,6 +3,7 @@ export interface CatSightingItem {
   title: string;
   description: string;
   image?: string;
+  file?: File;
   latitude: number;
   longitude: number;
   createdAt?: Date; 

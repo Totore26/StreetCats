@@ -18,7 +18,7 @@ export class Geolocalization {
         error => { reject(error); },
         {
           enableHighAccuracy: true, // Per una maggiore precisione
-          timeout: 5000,            // Timeout dopo 5 secondi
+          timeout: 10000,            // Timeout dopo 10 secondi
           maximumAge: 0             // Non uso posizioni in cache
         }
       );

@@ -1,4 +1,5 @@
 import express from "express";
+import upload from "../middleware/uploadMiddleware.js";
 import { CatSightingController } from "../controllers/catSightingController.js";
 import { requireAuth } from "../middleware/authorization.js";
 
@@ -74,7 +75,7 @@ CatSightingRouter.get("/catsightings/:id", async (req, res, next) => {
  *       description: Data for the new cat sighting
  *       required: true
  *       content:
- *         application/json:
+ *         multipart/form-data:
  *           schema:
  *             type: object
  *             required:
@@ -90,8 +91,7 @@ CatSightingRouter.get("/catsightings/:id", async (req, res, next) => {
  *                 type: string
  *                 example: "A beautiful tabby cat sleeping on a bench"
  *               image:
- *                 type: string
- *                 example: "https://example.com/cat-image.jpg"
+ *                 type: File
  *               latitude:
  *                 type: number
  *                 format: float
@@ -108,7 +108,7 @@ CatSightingRouter.get("/catsightings/:id", async (req, res, next) => {
  *       500:
  *         description: Server error
  */
-CatSightingRouter.post("/catsightings", requireAuth, async (req, res, next) => {
+CatSightingRouter.post("/catsightings", requireAuth, upload.single('image'), async (req, res, next) => {
 
     CatSightingController.create(req, res)
         .then( result => {res.status(201).json(result);} )

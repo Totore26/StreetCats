@@ -6,6 +6,7 @@ import { CatSightingItem, CommentItem } from '../../_services/backend/rest-backe
 import { RestBackendService } from '../../_services/backend/rest-backend-service';
 import { ToastrService } from 'ngx-toastr';
 import { Comments } from '../commentsComponent/comments';
+import { restApiURL } from '../../_services/backend/rest-backend-service'
 
 @Component({
   selector: 'app-cat-details',
@@ -38,43 +39,23 @@ export class CatDetails implements OnInit {
   constructor() {}
   
   ngOnInit(): void {
-    // Verifica se c'è un ID nei parametri del percorso
-    this.route.paramMap.subscribe(params => {
-      const paramId = params.get('id');
-      if (paramId) {
-        this.sightingId = paramId;
-        this.fetchData();
-        return;
-      }
-      
-      // Se non presente nei parametri del percorso, cerca nei query parameters
+    // prendo l id dall'URL
       this.route.queryParamMap.subscribe(queryParams => {
         const queryId = queryParams.get('id');
-        if (queryId) {
-          this.sightingId = queryId;
-          this.fetchData();
-          return;
-        }
-        
-        this.toastr.error("ID avvistamento non trovato", "Errore:");
+        this.sightingId = queryId;
+        this.fetchData();
       });
-    });
   }
 
   fetchData() {
     if (!this.sightingId) return;
     
     this.restBackendService.getCatSightingDetails(Number(this.sightingId)).subscribe({
-      next: (data) => { 
+      next: (data) => {
         if (data) {
           this.currentSighting = data;
-          
-          // Assicuriamo che ci sia sempre un array Comments anche se non è presente nella risposta
-          if (!this.currentSighting.Comments) {
-            this.currentSighting.Comments = [];
-          }
-        } else {
-          this.toastr.info("Nessun avvistamento trovato", "Info:", { progressBar: true });
+          // se non ci sono commenti, inizializzo l'array
+          if (!this.currentSighting.Comments) this.currentSighting.Comments = [];
         }
       },
       error: (err) => { 
@@ -125,5 +106,9 @@ export class CatDetails implements OnInit {
     } else {
       this.toastr.error("Coordinate non disponibili per questo avvistamento", "Errore:");
     }
+  }
+
+  getImageUrl(): string {
+    return this.currentSighting.image ? `${restApiURL}${this.currentSighting.image}` : './defaultCatImage.png';
   }
 }

@@ -1,10 +1,12 @@
 import express from "express"; //import express
+import path from "path"; //import path for file paths
 
 import morgan from "morgan"; //middleware for logging requests
 import cors from "cors"; //middleware for CORS
 import swaggerUI from "swagger-ui-express"; //middleware for swagger UI
 import swaggerJSDoc from "swagger-jsdoc"; //middleware for swagger JSDoc
 import dotenv from "dotenv"; //middleware for environment variables
+import { fileURLToPath } from 'url'; // for __filename and __dirname
 
 //Routes
 import { AuthRouter } from './routes/authRouter.js'; 
@@ -47,6 +49,12 @@ const swaggerSpec = swaggerJSDoc({
   apis: ['./routes/*Router.js','./routers/*/*.js'], // files containing annotations
 });
 app.use('/doc', swaggerUI.serve, swaggerUI.setup(swaggerSpec));
+
+// abilita il rifornimento di file statici nelle cartelle public e uploads
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+app.use(express.static(path.join(__dirname, 'public')));
+app.use('/uploads', express.static(path.join(__dirname, 'public/uploads')));
 
 //routes
 app.use(AuthRouter); 

@@ -1,15 +1,14 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { EventEmitter, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { CatSightingItem } from './rest-backend-models';
 import { AuthRequest } from './rest-backend-models';
+
+export const restApiURL = "http://localhost:3000";
 
 @Injectable({
   providedIn: 'root'
 })
-
 export class RestBackendService {
-
-  url = "http://localhost:3000";
 
   constructor(private http: HttpClient) {}
 
@@ -20,42 +19,42 @@ export class RestBackendService {
   };
 
   login(loginRequest: AuthRequest){
-    const url = `${this.url}/login`; 
-    return this.http.post<string>(url, loginRequest, this.httpOptions);
+    const endpoint = `${restApiURL}/login`; 
+    return this.http.post<string>(endpoint, loginRequest, this.httpOptions);
   }
 
   logout() {
-    const url = `${this.url}/logout`;
-    return this.http.post(url, {} ,this.httpOptions);
+    const endpoint = `${restApiURL}/logout`;
+    return this.http.post(endpoint, {} ,this.httpOptions);
   }
 
   signup(signupRequest: AuthRequest){
-    const url = `${this.url}/signup`; 
+    const endpoint = `${restApiURL}/signup`; 
     console.log(signupRequest);
-    return this.http.post(url, signupRequest, this.httpOptions);
+    return this.http.post(endpoint, signupRequest, this.httpOptions);
   }
 
   // Avvistamenti gatti
 
   getCatSightings() {
-    const url = `${this.url}/catsightings`;
-    return this.http.get<CatSightingItem[]>(url, this.httpOptions);
+    const endpoint = `${restApiURL}/catsightings`;
+    return this.http.get<CatSightingItem[]>(endpoint, this.httpOptions);
   }
 
   getCatSightingDetails(id: number) {
-    const url = `${this.url}/catsightings/${id}`;
-    return this.http.get<CatSightingItem>(url, this.httpOptions);
+    const endpoint = `${restApiURL}/catsightings/${id}`;
+    return this.http.get<CatSightingItem>(endpoint, this.httpOptions);
   }
 
-  postCatSighting(catSighting: CatSightingItem) {
-    const url = `${this.url}/catsightings`;
-    return this.http.post<CatSightingItem>(url, catSighting, this.httpOptions);
+  postCatSighting(catSighting: FormData) {
+    const endpoint = `${restApiURL}/catsightings`;
+    return this.http.post<FormData>(endpoint, catSighting);
   }
 
   // Commenti
   postComment(id: number, content: string) {
-    const url = `${this.url}/comments/${id}`;
-    return this.http.post(url, { content }, this.httpOptions);
+    const endpoint = `${restApiURL}/comments/${id}`;
+    return this.http.post(endpoint, { content }, this.httpOptions);
   }
 
 }

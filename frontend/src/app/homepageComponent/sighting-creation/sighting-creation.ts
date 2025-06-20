@@ -5,7 +5,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { RestBackendService } from '../../_services/backend/rest-backend-service';
 import { MarkdownService } from '../../_services/markdown/markdown-service';
-import DOMPurify from 'dompurify';
 
 @Component({
   selector: 'app-sighting-creation',
@@ -41,6 +40,7 @@ export class SightingCreation implements OnInit, OnDestroy {
     this.sightingForm = this.fb.group({
       title: ['', [Validators.required, Validators.minLength(3)]],
       description: ['', [Validators.required, Validators.minLength(10)]],
+      photo: [null]
     });
   }
   
@@ -61,32 +61,32 @@ export class SightingCreation implements OnInit, OnDestroy {
   
   async onSubmit() {
     if (this.sightingForm.valid && this.lat && this.lng) {
-      try {
-        // Converto la descrizione da markdown a HTML sanitizzato
-        const markdownText = this.sightingForm.value.description;
-        const processedText = markdownText.replace(/(?<!\n)\n(?!\n)/g, "  \n");
-        const htmlDescription = await this.markdownService.convertToHtml(processedText);
-        
-        const sightingData = {
-          title: this.sightingForm.value.title,
-          description: htmlDescription, // Usa l'HTML sanitizzato invece del markdown
-          photo: this.sightingForm.value.photo,
-          latitude: parseFloat(this.lat),
-          longitude: parseFloat(this.lng)
-        };
-        
-        this.restService.postCatSighting(sightingData).subscribe({
-          next: () => {
-            this.toastr.success('Avvistamento registrato con successo!', 'Successo');
-            this.router.navigate(['/homepage']); // Naviga verso la homepage
-          },
-          error: (err) => {
-            this.toastr.error(err.message || 'Errore durante la registrazione dell\'avvistamento', 'Errore');
-          }
-        });
-      } catch (error) {
-        this.toastr.error('Si è verificato un errore nella conversione della descrizione', 'Errore');
+      // Converto la descrizione da markdown a HTML sanitizzato
+      const markdownText = this.sightingForm.value.description;
+      const processedText = markdownText.replace(/(?<!\n)\n(?!\n)/g, "  \n");
+      const htmlDescription = await this.markdownService.convertToHtml(processedText);
+      
+      // Creo un FormData per l'invio dei dati multipart con il file
+      const formData = new FormData();
+      formData.append('title', this.sightingForm.value.title);
+      formData.append('description', htmlDescription);
+      formData.append('latitude', this.lat);
+      formData.append('longitude', this.lng);
+      
+      // Aggiungo il file se presente
+      if (this.sightingForm.value.photo) {
+        formData.append('image', this.sightingForm.value.photo);
       }
+      
+      this.restService.postCatSighting(formData).subscribe({
+        next: () => {
+          this.toastr.success('Avvistamento registrato con successo!', 'Successo');
+          this.router.navigate(['/homepage']); // Naviga verso la homepage
+        },
+        error: (err) => {
+          this.toastr.error(err.message || 'Errore durante la registrazione dell\'avvistamento', 'Errore');
+        }
+      });
     }
   }
 
@@ -113,9 +113,9 @@ export class SightingCreation implements OnInit, OnDestroy {
     }
   }
 
-  /*-----------------------------------------*
-  * FUNZIONI PER LA GESTIONE DELL'IMMAGINE 
-  *------------------------------------------*/
+  /*-----------------------------------------------------*
+  * FUNZIONI PER LA GESTIONE DELL'INSERIMENTO IMMAGINE 
+  *------------------------------------------------------*/
 
   onFileChange(event: Event) {
     const file = (event.target as HTMLInputElement).files?.[0];
@@ -212,4 +212,6 @@ export class SightingCreation implements OnInit, OnDestroy {
     document.removeEventListener('touchmove', this.onDragTouch);
     document.removeEventListener('touchend', this.stopDrag);
   }
+
+
 }
