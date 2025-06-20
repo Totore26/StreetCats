@@ -24,8 +24,8 @@
         type="file" 
         id="photo" 
         accept="image/*"
-        (change)="onFileChange($event)"
         class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        (change)="onFileChange($event)"
       >
       
       <!-- Messaggio di errore se il file è troppo grande -->
@@ -35,48 +35,24 @@
         </div>
       }
       
+      <!-- Anteprima dell'immagine caricata -->
       @if (previewImage) {
-        <div class="mt-4">
-          <div class="flex justify-between items-center mb-1">
-            <p class="text-sm font-medium text-gray-700">Anteprima:</p>
-            <!-- Pulsante per rimuovere l'immagine -->
-            <button 
-              type="button" 
-              (click)="removeImage()" 
-              class="text-xs px-2 py-1 bg-red-100 hover:bg-red-200 text-red-700 rounded-md transition">
-              Rimuovi immagine
-            </button>
+        <div class="mt-4 relative">
+          <div class="image-preview-container w-full overflow-hidden rounded-lg border-2 border-gray-200">
+            <img [src]="previewImage" alt="Anteprima" class="w-full object-contain max-h-64 sm:max-h-80" />
           </div>
-          
-          <!-- Contenitore immagine con dimensione fissa responsive-->
-          <div class="relative w-72 h-72 md:w-80 md:h-80 lg:w-96 lg:h-96 overflow-hidden border-2 border-gray-300 rounded-lg mx-auto">
-            <img 
-              [src]="previewImage" 
-              alt="Anteprima" 
-              class="absolute cursor-move touch-manipulation"
-              [style.transform]="'scale(' + imageScale + ') translate(' + imageX + 'px, ' + imageY + 'px)'"
-              (mousedown)="startDrag($event)"
-              (touchstart)="startDrag($event, true)">
-          </div>
-          
-          <!-- Controlli per lo zoom -->
-          <div class="mt-4 px-2">
-            <div class="flex items-center mb-2">
-              <span class="text-sm font-medium text-gray-700 mr-3">Zoom:</span>
-              <input 
-                type="range" 
-                min="1" 
-                max="3" 
-                step="0.1" 
-                class="w-full"
-                [value]="imageScale"
-                (input)="onZoomChange($event)">
-            </div>
-            
-            <p class="text-xs text-gray-600 italic text-center">
-              Trascina l'immagine per posizionarla e usa lo slider per regolare lo zoom
-            </p>
-          </div>
+          <button 
+            type="button" 
+            (click)="removeImage()" 
+            class="absolute top-2 right-2 bg-white rounded-full p-1 shadow-md hover:bg-gray-100 transition-colors"
+            title="Rimuovi immagine"
+          >
+            <span class="flex items-center justify-center w-6 h-6 text-gray-600">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-5 h-5">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+              </svg>
+            </span>
+          </button>
         </div>
       }
     </div>

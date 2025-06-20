@@ -13,7 +13,7 @@ import { MarkdownService } from '../../_services/markdown/markdown-service';
   styleUrl: './sighting-creation.scss',
   standalone: true,
 })
-export class SightingCreation implements OnInit, OnDestroy {
+export class SightingCreation implements OnInit {
   sightingForm: FormGroup;
   lat: string | null = null;
   lng: string | null = null;
@@ -62,6 +62,48 @@ export class SightingCreation implements OnInit, OnDestroy {
         this.updateMarkdownPreview(value);
       }
     });
+  }
+  
+  /**
+   * Gestisce il caricamento dell'immagine e mostra l'anteprima
+   */
+  onFileChange(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (!input.files?.length) return;
+    
+    const file = input.files[0];
+    
+    // Controllo sulla dimensione del file
+    if (file.size > this.MAX_FILE_SIZE_BYTES) {
+      this.isFileTooLarge = true;
+      this.previewImage = null;
+      this.sightingForm.get('photo')?.setValue(null);
+      return;
+    }
+    
+    this.isFileTooLarge = false;
+    this.sightingForm.get('photo')?.setValue(file);
+    
+    // Creazione anteprima
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.previewImage = reader.result;
+    };
+    reader.readAsDataURL(file);
+  }
+  
+  /**
+   * Rimuove l'immagine caricata
+   */
+  removeImage() {
+    this.previewImage = null;
+    this.sightingForm.get('photo')?.setValue(null);
+    
+    // Reset anche dell'input file (opzionale)
+    const fileInput = document.getElementById('photo') as HTMLInputElement;
+    if (fileInput) {
+      fileInput.value = '';
+    }
   }
   
   async onSubmit() {
@@ -116,128 +158,6 @@ export class SightingCreation implements OnInit, OnDestroy {
         this.updateMarkdownPreview(description);
       }
     }
-  }
-
-  /*-----------------------------------------------------*
-  * FUNZIONI PER LA GESTIONE DELL'INSERIMENTO IMMAGINE 
-  *------------------------------------------------------*/
-
-  onFileChange(event: Event) {
-    const file = (event.target as HTMLInputElement).files?.[0];
-    
-    if (file) {
-      // Verifica la dimensione del file
-      if (file.size > this.MAX_FILE_SIZE_BYTES) {
-        this.isFileTooLarge = true;
-        return;
-      }
-      
-      this.isFileTooLarge = false;
-      this.sightingForm.patchValue({
-        photo: file
-      });
-      
-      // Mostra l'anteprima dell'immagine
-      const reader = new FileReader();
-      reader.onload = () => {
-        this.previewImage = reader.result;
-        // Resetta posizione e zoom quando viene caricata una nuova immagine
-        this.resetImagePosition();
-      };
-      reader.readAsDataURL(file);
-    }
-  }
-
-  //Rimuove l'immagine caricata
-  removeImage() {
-    this.previewImage = null;
-    this.isFileTooLarge = false;
-    this.sightingForm.patchValue({
-      photo: null
-    });
-    
-    // Reset del campo input file
-    const fileInput = document.getElementById('photo') as HTMLInputElement;
-    if (fileInput) {
-      fileInput.value = '';
-    }
-  }
-
-  resetImagePosition() {
-    this.imageScale = 1;
-    this.imageX = 0;
-    this.imageY = 0;
-  }
-  
-  adjustZoom(amount: number) {
-    this.imageScale = Math.max(1, Math.min(3, this.imageScale + amount));
-  }
-  
-  onZoomChange(event: Event) {
-    this.imageScale = parseFloat((event.target as HTMLInputElement).value);
-  }
-  
-  startDrag(event: MouseEvent | TouchEvent, isTouch: boolean = false) {
-    event.preventDefault();
-    this.isDragging = true;
-    
-    if (isTouch && event instanceof TouchEvent) {
-      this.lastPointerX = event.touches[0].clientX;
-      this.lastPointerY = event.touches[0].clientY;
-    } else if (event instanceof MouseEvent) {
-      this.lastPointerX = event.clientX;
-      this.lastPointerY = event.clientY;
-    }
-    
-    // Aggiungo gli event listener per il drag
-    document.addEventListener('mousemove', this.onDrag);
-    document.addEventListener('mouseup', this.stopDrag);
-    document.addEventListener('touchmove', this.onDragTouch, { passive: false });
-    document.addEventListener('touchend', this.stopDrag);
-  }
-  
-  onDrag = (event: MouseEvent) => {
-    if (!this.isDragging) return;
-    
-    const deltaX = (event.clientX - this.lastPointerX) / this.imageScale;
-    const deltaY = (event.clientY - this.lastPointerY) / this.imageScale;
-    
-    this.imageX += deltaX;
-    this.imageY += deltaY;
-    
-    this.lastPointerX = event.clientX;
-    this.lastPointerY = event.clientY;
-  }
-  
-  onDragTouch = (event: TouchEvent) => {
-    if (!this.isDragging) return;
-    event.preventDefault();
-    
-    const touch = event.touches[0];
-    const deltaX = (touch.clientX - this.lastPointerX) / this.imageScale;
-    const deltaY = (touch.clientY - this.lastPointerY) / this.imageScale;
-    
-    this.imageX += deltaX;
-    this.imageY += deltaY;
-    
-    this.lastPointerX = touch.clientX;
-    this.lastPointerY = touch.clientY;
-  }
-  
-  stopDrag = () => {
-    this.isDragging = false;
-    document.removeEventListener('mousemove', this.onDrag);
-    document.removeEventListener('mouseup', this.stopDrag);
-    document.removeEventListener('touchmove', this.onDragTouch);
-    document.removeEventListener('touchend', this.stopDrag);
-  }
-  
-  ngOnDestroy() {
-    // Rimuovo gli event listener quando il componente viene distrutto
-    document.removeEventListener('mousemove', this.onDrag);
-    document.removeEventListener('mouseup', this.stopDrag);
-    document.removeEventListener('touchmove', this.onDragTouch);
-    document.removeEventListener('touchend', this.stopDrag);
   }
 
 
