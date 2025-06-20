@@ -1,7 +1,7 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { Router, RouterLink, ActivatedRoute } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
 import { CatSightingItem, CommentItem } from '../../_services/backend/rest-backend-models';
 import { RestBackendService } from '../../_services/backend/rest-backend-service';
 import { ToastrService } from 'ngx-toastr';
@@ -11,12 +11,7 @@ import { restApiURL } from '../../_services/backend/rest-backend-service'
 @Component({
   selector: 'app-cat-details',
   standalone: true,
-  imports: [
-    CommonModule, 
-    ReactiveFormsModule, 
-    RouterLink,
-    Comments
-  ],
+  imports: [CommonModule, ReactiveFormsModule,Comments],
   templateUrl: './cat-details.html',
   styleUrl: './cat-details.scss'
 })
