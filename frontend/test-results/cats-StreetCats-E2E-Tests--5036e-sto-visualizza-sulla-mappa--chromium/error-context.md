@@ -11,18 +11,18 @@
   - link "Login":
     - /url: /login
 - main:
-  - heading "Gatto senza nome" [level=2]
-  - paragraph: "Avvistato il:"
-  - img "Foto del gatto"
-  - paragraph: Nessuna descrizione disponibile
+  - heading "Accedi al tuo account" [level=1]
+  - text: Username
+  - textbox "Username": user_1750526632389_884
+  - text: Password
+  - textbox "Password": password123
+  - link "Hai dimenticato la password?":
+    - /url: "#"
+  - button "Accedi"
   - paragraph:
-    - strong: "Posizione:"
-    - text: "Lat: 0, Long: 0"
-  - button "Vedi sulla mappa"
-  - heading "Commenti" [level=2]
-  - textbox: prova commento senza login
-  - button "Invia commento"
-  - text: Nessun commento presente
+    - text: Non hai un account?
+    - link "Registrati":
+      - /url: /signup
 - contentinfo:
   - text: © 2025 StreetCats , tutti i diritti riservati.
   - link "Twitter":

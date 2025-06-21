@@ -73,9 +73,6 @@ packages/
 testem.log
 /typings
 
-# other
-test/
-
 # Compiled output
 /dist
 /tmp

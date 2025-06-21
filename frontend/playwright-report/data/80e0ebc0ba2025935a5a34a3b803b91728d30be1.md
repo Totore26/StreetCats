@@ -16,6 +16,8 @@
     - tab "Lista"
   - tabpanel "Mappa":
     - button "Marker"
+    - paragraph: Clicca su questo gattino per aggiungere un nuovo avvistamento qui
+    - button "Close popup"
     - button "Zoom in"
     - button "Zoom out"
     - link "Leaflet":
