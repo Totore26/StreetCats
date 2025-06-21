@@ -8,10 +8,10 @@ export function authInterceptor(request: HttpRequest<unknown>, next: HttpHandler
   const token = authService.getToken();
 
   if (token) {
-    // add the token to the headers of the request
+    // aggiungo il token all header della richiesta
     request = request.clone({
       setHeaders: {
-        Authorization: 'Bearer ' + token
+        Authorization: 'Bearer '+token
       }
     });
   }

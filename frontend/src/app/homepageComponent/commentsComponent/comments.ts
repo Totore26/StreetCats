@@ -1,10 +1,11 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { CatSightingItem, CommentItem } from '../../_services/backend/rest-backend-models';
 import { RestBackendService } from '../../_services/backend/rest-backend-service';
+import { AuthService } from '../../_services/auth/auth-service';
 
 @Component({
   selector: 'app-comments',
@@ -17,6 +18,9 @@ import { RestBackendService } from '../../_services/backend/rest-backend-service
   styleUrl: './comments.scss'
 })
 export class Comments {
+
+  authservice = inject(AuthService);
+
   @Input() catSighting?: CatSightingItem;
   @Input() showAllComments = false;
   @Input() maxCommentsToShow = 2;
@@ -68,25 +72,31 @@ export class Comments {
   
   onSubmitComment(): void {
     if (this.commentForm.valid && this.catSighting?.id) {
-      const content = this.commentForm.value.text;
-      
-      this.restBackendService.postComment(this.catSighting.id, content).subscribe({
-        next: (newComment) => {
-          const commentItem = newComment as CommentItem;
-          
-          // Emetti l'evento per notificare il componente padre
-          this.commentAdded.emit(commentItem);
-          
-          // Reset form
-          this.commentForm.reset();
-          
-          this.toastr.success("Commento aggiunto con successo", "Successo:", { progressBar: true });
-        },
-        error: (err) => {
-          console.error('Errore durante l\'aggiunta del commento:', err);
-          this.toastr.error("Si è verificato un errore durante l'aggiunta del commento", "Errore:");
-        }
-      });
+
+      if (this.authservice.isUserAuthenticated()) {
+        const content = this.commentForm.value.text;
+        
+        this.restBackendService.postComment(this.catSighting.id, content).subscribe({
+          next: (newComment) => {
+            const commentItem = newComment as CommentItem;
+            
+            // Emetti l'evento per notificare il componente padre
+            this.commentAdded.emit(commentItem);
+            
+            // Reset form
+            this.commentForm.reset();
+            
+            this.toastr.success("Commento aggiunto con successo", "Successo:", { progressBar: true });
+          },
+          error: (err) => {
+            console.error('Errore durante l\'aggiunta del commento:', err);
+            this.toastr.error("Si è verificato un errore durante l'aggiunta del commento", "Errore:");
+          }
+        });
+      } else {
+        this.toastr.warning("Esegui il login per avere accesso a questa feature", "Non autorizzato!", { progressBar: true });
+        this.router.navigate(['/login']); 
+      }
     }
   }
   
