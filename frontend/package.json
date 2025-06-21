@@ -21,6 +21,8 @@
     "@angular/platform-browser": "^20.0.0",
     "@angular/router": "^20.0.0",
     "@tailwindcss/postcss": "^4.1.10",
+    "body-parser": "^2.2.0",
+    "cors": "^2.8.5",
     "express": "^5.1.0",
     "jwt-decode": "^4.0.0",
     "leaflet": "^1.9.4",

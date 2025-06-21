@@ -11,25 +11,18 @@
   - link "Login":
     - /url: /login
 - main:
-  - heading "Gatto magico" [level=2]
-  - paragraph: "Avvistato il: 21/06/2025, 14:42"
+  - heading "Gatto senza nome" [level=2]
+  - paragraph: "Avvistato il:"
   - img "Foto del gatto"
-  - paragraph:
-    - paragraph:
-      - text: ho trovato un gatto
-      - strong: magico
+  - paragraph: Nessuna descrizione disponibile
   - paragraph:
     - strong: "Posizione:"
-    - text: "Lat: 40.94481232711935, Long: 14.358911781178978"
+    - text: "Lat: 0, Long: 0"
   - button "Vedi sulla mappa"
   - heading "Commenti" [level=2]
-  - textbox: Buongiorno
+  - textbox: prova commento senza login
   - button "Invia commento"
-  - text: 12345 21/06/2025, 15:50
-  - paragraph: tdfnxfgn fxzg
-  - text: 12345 21/06/2025, 14:45
-  - paragraph: gdfnsfd
-  - paragraph: Mostra tutti i commenti (7)
+  - text: Nessun commento presente
 - contentinfo:
   - text: © 2025 StreetCats , tutti i diritti riservati.
   - link "Twitter":
@@ -38,6 +31,4 @@
     - /url: https://facebook.com
   - link "Instagram":
     - /url: https://instagram.com
-- text: "Errore:"
-- alert "Si è verificato un errore durante l'aggiunta del commento"
 ```

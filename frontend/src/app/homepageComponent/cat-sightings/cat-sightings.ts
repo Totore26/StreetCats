@@ -30,8 +30,8 @@ export class CatSightings {
 
   catSightings: CatSightingItem[] = []; // Array per memorizzare gli avvistamenti dei gatti
   displayedSightings: CatSightingItem[] = []; // Array per memorizzare gli avvistamenti visualizzati nella pagina corrente
-lat: number = 40.8300; // Napoli Mergellina latitudine
-lon: number = 14.2169; // Napoli Mergellina longitudine
+  lat: number = 40.8300; // Napoli Mergellina latitudine
+  lon: number = 14.2169; // Napoli Mergellina longitudine
   map: any;
   tempMarker: L.Marker | null = null;
 

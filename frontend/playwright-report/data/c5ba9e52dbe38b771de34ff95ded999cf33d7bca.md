@@ -14,8 +14,9 @@
   - heading "Accedi al tuo account" [level=1]
   - text: Username
   - textbox "Username"
-  - text: Password
+  - text: L'username è obbligatorio Password
   - textbox "Password"
+  - text: La password è obbligatoria
   - link "Hai dimenticato la password?":
     - /url: "#"
   - button "Accedi"
