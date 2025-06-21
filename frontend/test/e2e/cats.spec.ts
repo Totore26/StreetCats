@@ -16,7 +16,7 @@ test.describe('StreetCats E2E Tests', () => {
         await page.getByRole('textbox', { name: 'Password' }).click();
         await page.getByRole('textbox', { name: 'Password' }).fill('FakePassw');
         await page.getByRole('button', { name: 'Accedi' }).click();
-        await page.getByRole('button', { name: 'Accedi' }).click();
+        await page.getByRole('button', { name: 'Accedi' }).click(); 
     });
 
     test('2. Signup con credenziali corrette', async ({ page }) => {
