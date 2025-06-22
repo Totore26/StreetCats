@@ -41,7 +41,7 @@ export class Login {
 
     // Se il form non è valido, mostra un errore
     if (this.loginForm.invalid) {
-      this.toastr.error("completa i campi obbligatori e verifica che siano validi", "Attenzione", { progressBar: true });
+      this.toastr.error("completa i campi obbligatori e verifica che siano validi", "Attenzione", { progressBar: true, });
       return;
     }
 

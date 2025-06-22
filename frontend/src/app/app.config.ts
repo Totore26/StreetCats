@@ -14,7 +14,11 @@ export const appConfig: ApplicationConfig = {
       withFetch(), // using the Fetch API for HTTP requests
       withInterceptors([authInterceptor])
     ),
-    provideToastr(),
+      provideToastr({
+      positionClass: 'toast-top-center', // Posizione centrale
+      closeButton: true,
+      progressBar: true
+    }),
     provideRouter(routes),
     provideAnimations() // Aggiunto provider per le animazioni
   ]
