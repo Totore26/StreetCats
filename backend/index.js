@@ -25,8 +25,15 @@ app.use(morgan("dev")); // 'dev' format for morgan logs
 app.use(express.json()); // Parses JSON body (available in req.body)
 app.use(express.static("public")); // to serve static files from /public
 app.use(express.urlencoded({extended: false})); // Parses url-encoded body (available in req.body)
-// TODO: configura cors per accettare solo richieste dal dominio del frontend
-app.use(cors()); // CORS middleware to allow requests from a specific origin
+
+
+// Configurazione CORS specifica per localhost:4200
+const corsOptions = {
+  origin: 'http://localhost:4200',
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  credentials: true // Permette l'invio di cookie nelle richieste cross-origin
+};
+app.use(cors(corsOptions)); // CORS middleware to allow requests from a specific origin
 
 //generate OpenAPI spec and show swaggerUI
 const swaggerSpec = swaggerJSDoc({
