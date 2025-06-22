@@ -13,7 +13,7 @@ A powerful tool that transforms your data into concrete, usable knowledge.
 
 To run StreetCats locally, follow these steps:
 
-1. **Clone the Repository:**
+1. **Clone the Repository in your Desktop:**
 
    ```bash
    git clone https://github.com/Totore26/StreetCats.git
