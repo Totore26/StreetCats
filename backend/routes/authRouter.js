@@ -119,8 +119,6 @@ AuthRouter.post("/logout", (req, res, next) => {
   req.body.token = token;
   
   AuthController.invalidateToken(req, res)
-    .then(() => { res.status(200).json({ message: "🔒 Token invalidato con successo! 🔒" }); })
-    .catch(next);
     
 });
 
