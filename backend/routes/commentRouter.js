@@ -1,6 +1,6 @@
 import express from "express";
 import { CommentController } from "../controllers/commentController.js";
-import { requireAuth } from "../middleware/authorization.js";
+import { requireAuth } from "../middleware/authorizationMiddleware.js";
 
 export const CommentRouter = express.Router();
 

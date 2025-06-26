@@ -13,7 +13,8 @@ export class Geolocalization {
       if (!navigator.geolocation)
         reject(new Error('Geolocalizzazione non supportata dal browser'));
 
-      navigator.geolocation.getCurrentPosition(
+      // utilizzo l'API del browser per ottenere la posizione
+      navigator.geolocation.getCurrentPosition( 
         position => { resolve(position); },
         error => { reject(error); },
         {

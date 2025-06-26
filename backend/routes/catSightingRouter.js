@@ -1,7 +1,7 @@
 import express from "express";
 import upload from "../middleware/uploadMiddleware.js";
 import { CatSightingController } from "../controllers/catSightingController.js";
-import { requireAuth } from "../middleware/authorization.js";
+import { requireAuth } from "../middleware/authorizationMiddleware.js";
 
 export const CatSightingRouter = express.Router();
 

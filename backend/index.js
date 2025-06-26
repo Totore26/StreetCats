@@ -12,7 +12,7 @@ import { fileURLToPath } from 'url'; // for __filename and __dirname
 import { AuthRouter } from './routes/authRouter.js'; 
 import { CatSightingRouter } from "./routes/catSightingRouter.js";
 import { CommentRouter } from "./routes/commentRouter.js";
-import { errorHandler } from './middleware/errorHandling.js' 
+import { errorHandler } from './middleware/errorHandlingMiddleware.js'; 
 
 dotenv.config(); //read .env file and make it available in process.env
 
@@ -21,13 +21,13 @@ const PORT = process.env.PORT;
 const SESSION_COOKIE_AGE = 365 * 24 * 60 * 60 * 1000 ;  // 1 year in milliseconds
 //const SESSION_COOKIE_AGE = 10 * 60 * 1000 ;  // 10 minutes in milliseconds
 
-app.use(morgan("dev")); // 'dev' format for morgan logs
+app.use(morgan("dev")); // 'dev' format for morgan request logging
 app.use(express.json()); // Parses JSON body (available in req.body)
 app.use(express.static("public")); // to serve static files from /public
 app.use(express.urlencoded({extended: false})); // Parses url-encoded body (available in req.body)
 
 
-// Configurazione CORS specifica per localhost:4200
+// Configurazione CORS per localhost:4200
 const corsOptions = {
   origin: 'http://localhost:4200',
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
@@ -35,7 +35,7 @@ const corsOptions = {
 };
 app.use(cors(corsOptions)); // CORS middleware to allow requests from a specific origin
 
-//generate OpenAPI spec and show swaggerUI
+// generate OpenAPI spec and show swaggerUI
 const swaggerSpec = swaggerJSDoc({
   definition: {
     openapi: '3.1.0',
