@@ -38,9 +38,6 @@ ehthumbs.db
 Desktop.ini
 $RECYCLE.BIN/
 
-# Environment variables
-.env
-
 # Logs
 logs/
 *.log

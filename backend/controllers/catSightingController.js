@@ -18,7 +18,11 @@ export class CatSightingController {
     static async create(req) {
         
         let data = { ...req.body }; // creo una copia cosi req rimane invariato 
-        if (req.file) data.image = `/uploads/${req.file.filename}`;
+        if (req.file) {
+            data.image = `/uploads/${req.file.filename}`;
+        } else {
+            data.image = '';
+        }
         
         let catSighting = CatSighting.build(data);
         catSighting.UserUsername = req.username;
